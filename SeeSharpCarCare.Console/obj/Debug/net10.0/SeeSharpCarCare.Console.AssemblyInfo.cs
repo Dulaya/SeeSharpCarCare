@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SeeSharpCarCare.Console")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5df95d51ce1e1b602571ffd11092a6803bff4d2e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+43f3d76d0fe416f8b0c3a4096ed77ad54fd78ad0")]
 [assembly: System.Reflection.AssemblyProductAttribute("SeeSharpCarCare.Console")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SeeSharpCarCare.Console")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

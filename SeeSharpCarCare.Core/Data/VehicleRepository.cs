@@ -6,45 +6,79 @@ namespace SeeSharpCarCare.Core.Data;
 
 public class VehicleRepository
 {
-    SeeSharpCarCareDbContext context = new();
+    private SeeSharpCarCareDbContext _context = new();
 
-    async public Task<string> AddVehicle(Vehicle vehicle)
+    async public Task<string> AddVehicleRepo(Vehicle vehicle)
     {
         try
         {
-            var vehicleFound = await context.Vehicles.AnyAsync(v => v == vehicle);
+            bool vehicleFound = await _context.Vehicles.AnyAsync(v => v == vehicle);
             if (vehicleFound) return "Vehicle Already Existed.";
             else
             {
-                await context.Vehicles.AddAsync(vehicle);
-                await context.SaveChangesAsync();
+                await _context.Vehicles.AddAsync(vehicle);
+                await _context.SaveChangesAsync();
                 return "Vehicle Added";
             }
         }
         catch (DbException e)
         {
-            Console.WriteLine(e.Message);
             return e.Message;
         }
     }
 
-    async public Task<string> RemoveVehicle(Vehicle vehicle)
+    async public Task<string> RemoveVehicleRepo(Vehicle vehicle)
     {
         try
         {
-            var vehicleFound = await context.Vehicles.AnyAsync(v => v == vehicle);
+            bool vehicleFound = await _context.Vehicles.AnyAsync(v => v == vehicle);
             if (!vehicleFound) return "Vehicle Doesn't Exist.";
             else
             {
-                context.Vehicles.Remove(vehicle);
-                await context.SaveChangesAsync();
+                _context.Vehicles.Remove(vehicle);
+                await _context.SaveChangesAsync();
                 return "Vehicle Removed";
             }
         }
         catch (DbException e)
         {
-            Console.WriteLine(e.Message);
             return e.Message;
         }
     }
+
+    async public Task<string> UpdateVehicleRepo(Vehicle vehicle)
+    {
+        try
+        {
+            bool vehicleFound = await _context.Vehicles.AnyAsync(v => v == vehicle);
+            if (!vehicleFound) return "Vehicle Not Found.";
+            else
+            {
+
+                await _context.Vehicles.AddAsync(vehicle);
+                await _context.SaveChangesAsync();
+                return "Vehicle Removed.";
+            }
+        }
+        catch (DbException e)
+        {
+            return e.Message;
+        }
+    }
+
+    async public Task<Vehicle> FindVehicleByVINRepo(string vin)
+    {
+        try
+        {
+            Vehicle? vehicle = await _context.Vehicles.FindAsync(vin);
+            if (vehicle != null) return vehicle;
+            else return null;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+
 }

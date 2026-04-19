@@ -10,13 +10,17 @@ Vehicle vehicle = new Vehicle
     Make = "GMC",
     Model = "Yukon Denali",
     Body = "SUV",
-    Color = "Turquois",
-    Year = 2025,
+    Color = "White",
+    Year = 1997,
 };
 
-// string add = await vehicleService.AddVehicle(vehicle);
-string remove = await vehicleService.RemoveVehicle(vehicle);
-Console.WriteLine(remove);
+// string add = await vehicleService.AddVehicleService(vehicle);
+// string remove = await vehicleService.RemoveVehicleService(vehicle);
+// string update = await vehicleService.UpdateVehicleService(vehicle);
+
+Vehicle? ford = await vehicleService.FindVehicleByVINService("7A8DH40DG8H34G8G");
+
+Console.WriteLine($"{ford.Make} {ford.Model} {ford.VIN}");
 
 
 
