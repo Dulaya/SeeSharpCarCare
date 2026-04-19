@@ -5,14 +5,14 @@ namespace SeeSharpCarCare.Core.Services;
 
 public class VehicleService
 {
-    private VehicleRepository _vehicleRepository = new();
+    private Repository<Vehicle> _vehicleRepository = new();
 
     async public Task<string> AddVehicleService(Vehicle vehicle)
     {
         try
         {
             vehicle.VIN = vehicle.VIN.ToUpper();
-            return await _vehicleRepository.AddVehicleRepo(vehicle);
+            return await _vehicleRepository.AddToRepository(vehicle);
         }
         catch (Exception e)
         {
@@ -21,7 +21,7 @@ public class VehicleService
     }
 
     async public Task<string> RemoveVehicleService(Vehicle vehicle)
-       => await _vehicleRepository.RemoveVehicleRepo(vehicle);
+       => await _vehicleRepository.RemoveFromRepository(vehicle);
 
     async public Task<string> UpdateVehicleService(Vehicle vehicle)
     {
@@ -39,7 +39,7 @@ public class VehicleService
 
     async public Task<Vehicle> FindVehicleByVINService(string vin)
     {
-        Vehicle? vehicle = await _vehicleRepository.FindVehicleByVINRepo(vin);
+        Vehicle? vehicle = await _vehicleRepository.FindByIdInRepository(vin);
         if (vehicle != null) return vehicle;
         else return null;
     }

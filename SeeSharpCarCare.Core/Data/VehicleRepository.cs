@@ -4,21 +4,29 @@ using SeeSharpCarCare.Core.Models;
 
 namespace SeeSharpCarCare.Core.Data;
 
-public class VehicleRepository
+public interface IRepository<T>
+{
+    public Task<string> AddToRepository(T obj);
+    public Task<string> RemoveFromRepository(T obj);
+    public Task<string> UpdateRepository(T obj);
+    public Task<T> FindByIdInRepository(string vin);
+}
+
+public class Repository<T> : IRepository<T> where T : class
 {
     private SeeSharpCarCareDbContext _context = new();
 
-    async public Task<string> AddVehicleRepo(Vehicle vehicle)
+    async public Task<string> AddToRepository(T obj)
     {
         try
         {
-            bool vehicleFound = await _context.Vehicles.AnyAsync(v => v == vehicle);
-            if (vehicleFound) return "Vehicle Already Existed.";
+            bool objFound = await _context.Set<T>().AnyAsync(o => o == obj);
+            if (objFound) return "Object Already Existed.";
             else
             {
-                await _context.Vehicles.AddAsync(vehicle);
+                await _context.Set<T>().AddAsync(obj);
                 await _context.SaveChangesAsync();
-                return "Vehicle Added";
+                return "Object Added";
             }
         }
         catch (DbException e)
@@ -27,17 +35,18 @@ public class VehicleRepository
         }
     }
 
-    async public Task<string> RemoveVehicleRepo(Vehicle vehicle)
+
+    async public Task<string> RemoveFromRepository(T obj)
     {
         try
         {
-            bool vehicleFound = await _context.Vehicles.AnyAsync(v => v == vehicle);
-            if (!vehicleFound) return "Vehicle Doesn't Exist.";
+            bool objFound = await _context.Set<T>().AnyAsync(o => o == obj);
+            if (!objFound) return "Object Doesn't Exist.";
             else
             {
-                _context.Vehicles.Remove(vehicle);
+                _context.Set<T>().Remove(obj);
                 await _context.SaveChangesAsync();
-                return "Vehicle Removed";
+                return "Object Removed.";
             }
         }
         catch (DbException e)
@@ -46,18 +55,18 @@ public class VehicleRepository
         }
     }
 
-    async public Task<string> UpdateVehicleRepo(Vehicle vehicle)
+    async public Task<string> UpdateRepository(T obj)
     {
         try
         {
-            bool vehicleFound = await _context.Vehicles.AnyAsync(v => v == vehicle);
-            if (!vehicleFound) return "Vehicle Not Found.";
+            bool objFound = await _context.Set<T>().AnyAsync(v => v == obj);
+            if (!objFound) return "Object Not Found.";
             else
             {
 
-                await _context.Vehicles.AddAsync(vehicle);
+                await _context.Set<T>().AddAsync(obj);
                 await _context.SaveChangesAsync();
-                return "Vehicle Removed.";
+                return "Object Removed.";
             }
         }
         catch (DbException e)
@@ -66,12 +75,12 @@ public class VehicleRepository
         }
     }
 
-    async public Task<Vehicle> FindVehicleByVINRepo(string vin)
+    async public Task<T> FindByIdInRepository(string id)
     {
         try
         {
-            Vehicle? vehicle = await _context.Vehicles.FindAsync(vin);
-            if (vehicle != null) return vehicle;
+            T? obj = await _context.Set<T>().FindAsync(id);
+            if (obj != null) return obj;
             else return null;
         }
         catch
@@ -79,6 +88,5 @@ public class VehicleRepository
             return null;
         }
     }
-
 
 }
