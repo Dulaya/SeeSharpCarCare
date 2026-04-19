@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeSharpCarCare.Console", "SeeSharpCarCare.Console\SeeSharpCarCare.Console.csproj", "{17B4D81C-4EFA-A273-1A5F-69E147558890}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeSharpCarCare.Core", "SeeSharpCarCare.Core\SeeSharpCarCare.Core.csproj", "{16CD66C2-88DD-8920-FB09-382E46F60946}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17B4D81C-4EFA-A273-1A5F-69E147558890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17B4D81C-4EFA-A273-1A5F-69E147558890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17B4D81C-4EFA-A273-1A5F-69E147558890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17B4D81C-4EFA-A273-1A5F-69E147558890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16CD66C2-88DD-8920-FB09-382E46F60946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16CD66C2-88DD-8920-FB09-382E46F60946}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16CD66C2-88DD-8920-FB09-382E46F60946}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16CD66C2-88DD-8920-FB09-382E46F60946}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D7602232-AD55-44AF-AB42-12BF5762226A}
+	EndGlobalSection
+EndGlobal

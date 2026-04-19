@@ -1,0 +1,15 @@
+C:\Users\user\Desktop\SeeSharpCarCare\SeeSharpCarCare.Core\bin\Debug\net10.0\SeeSharpCarCare.Core.deps.json
+C:\Users\user\Desktop\SeeSharpCarCare\SeeSharpCarCare.Core\bin\Debug\net10.0\SeeSharpCarCare.Core.dll
+C:\Users\user\Desktop\SeeSharpCarCare\SeeSharpCarCare.Core\bin\Debug\net10.0\SeeSharpCarCare.Core.pdb
+C:\Users\user\Desktop\SeeSharpCarCare\SeeSharpCarCare.Core\obj\Debug\net10.0\SeeSharpCarCare.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\SeeSharpCarCare\SeeSharpCarCare.Core\obj\Debug\net10.0\SeeSharpCarCare.Core.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\SeeSharpCarCare\SeeSharpCarCare.Core\obj\Debug\net10.0\SeeSharpCarCare.Core.AssemblyInfo.cs
+C:\Users\user\Desktop\SeeSharpCarCare\SeeSharpCarCare.Core\obj\Debug\net10.0\SeeSharpCarCare.Core.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\SeeSharpCarCare\SeeSharpCarCare.Core\obj\Debug\net10.0\SeeSharpCarCare.Core.sourcelink.json
+C:\Users\user\Desktop\SeeSharpCarCare\SeeSharpCarCare.Core\obj\Debug\net10.0\SeeSharpCarCare.Core.dll
+C:\Users\user\Desktop\SeeSharpCarCare\SeeSharpCarCare.Core\obj\Debug\net10.0\refint\SeeSharpCarCare.Core.dll
+C:\Users\user\Desktop\SeeSharpCarCare\SeeSharpCarCare.Core\obj\Debug\net10.0\SeeSharpCarCare.Core.pdb
+C:\Users\user\Desktop\SeeSharpCarCare\SeeSharpCarCare.Core\obj\Debug\net10.0\ref\SeeSharpCarCare.Core.dll
+C:\Users\user\Desktop\SeeSharpCarCare\SeeSharpCarCare.Core\bin\Debug\net10.0\SeeSharpCarCare.Core.runtimeconfig.json
+C:\Users\user\Desktop\SeeSharpCarCare\SeeSharpCarCare.Core\obj\Debug\net10.0\SeeSharpCarCare.Core.genruntimeconfig.cache
+C:\Users\user\Desktop\SeeSharpCarCare\SeeSharpCarCare.Core\obj\Debug\net10.0\SeeSharpCarCare.Core.csproj.AssemblyReference.cache

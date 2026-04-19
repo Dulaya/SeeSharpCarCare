@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="SeeSharpCarCare.Console/SeeSharpCarCare.Console.csproj" />
+  <Project Path="SeeSharpCarCare.Core/SeeSharpCarCare.Core.csproj" />
+</Solution>
