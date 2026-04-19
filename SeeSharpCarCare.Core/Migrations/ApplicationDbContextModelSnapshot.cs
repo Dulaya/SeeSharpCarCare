@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SeeSharpCarCare.Core.Data;
 
@@ -11,12 +10,10 @@ using SeeSharpCarCare.Core.Data;
 
 namespace SeeSharpCarCare.Core.Migrations
 {
-    [DbContext(typeof(SeeSharpCarCareDbContext))]
-    [Migration("20260419072145_Migration1")]
-    partial class Migration1
+    [DbContext(typeof(ApplicationDbContext))]
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,7 +109,7 @@ namespace SeeSharpCarCare.Core.Migrations
                     b.Property<int?>("TechnicianId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WorkOrderId")
+                    b.Property<int>("WorkOrderId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -154,6 +151,21 @@ namespace SeeSharpCarCare.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Technicians");
+                });
+
+            modelBuilder.Entity("SeeSharpCarCare.Core.Models.TechnicianWorkOrder", b =>
+                {
+                    b.Property<int>("TechnicianId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkOrderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TechnicianId", "WorkOrderId");
+
+                    b.HasIndex("WorkOrderId");
+
+                    b.ToTable("TechnicianWorkOrder");
                 });
 
             modelBuilder.Entity("SeeSharpCarCare.Core.Models.Vehicle", b =>
@@ -198,6 +210,12 @@ namespace SeeSharpCarCare.Core.Migrations
                     b.Property<DateTime>("RepairDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("TechnicianWorkOrderTechnicianId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TechnicianWorkOrderWorkOrderId")
+                        .HasColumnType("int");
+
                     b.Property<string>("VIN")
                         .HasColumnType("nvarchar(450)");
 
@@ -211,22 +229,9 @@ namespace SeeSharpCarCare.Core.Migrations
 
                     b.HasIndex("VIN");
 
+                    b.HasIndex("TechnicianWorkOrderTechnicianId", "TechnicianWorkOrderWorkOrderId");
+
                     b.ToTable("WorkOrders");
-                });
-
-            modelBuilder.Entity("TechnicianWorkOrder", b =>
-                {
-                    b.Property<int>("TechniciansId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkOrdersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("TechniciansId", "WorkOrdersId");
-
-                    b.HasIndex("WorkOrdersId");
-
-                    b.ToTable("TechnicianWorkOrder");
                 });
 
             modelBuilder.Entity("SeeSharpCarCare.Core.Models.Invoice", b =>
@@ -262,11 +267,32 @@ namespace SeeSharpCarCare.Core.Migrations
 
                     b.HasOne("SeeSharpCarCare.Core.Models.WorkOrder", "WorkOrder")
                         .WithMany("Repairs")
-                        .HasForeignKey("WorkOrderId");
+                        .HasForeignKey("WorkOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Technician");
 
                     b.Navigation("WorkOrder");
+                });
+
+            modelBuilder.Entity("SeeSharpCarCare.Core.Models.TechnicianWorkOrder", b =>
+                {
+                    b.HasOne("SeeSharpCarCare.Core.Models.Technician", "Technician")
+                        .WithMany()
+                        .HasForeignKey("TechnicianId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SeeSharpCarCare.Core.Models.WorkOrder", "WokOrder")
+                        .WithMany()
+                        .HasForeignKey("WorkOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Technician");
+
+                    b.Navigation("WokOrder");
                 });
 
             modelBuilder.Entity("SeeSharpCarCare.Core.Models.WorkOrder", b =>
@@ -285,26 +311,15 @@ namespace SeeSharpCarCare.Core.Migrations
                         .HasForeignKey("VIN")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("SeeSharpCarCare.Core.Models.TechnicianWorkOrder", null)
+                        .WithMany("WorkOrders")
+                        .HasForeignKey("TechnicianWorkOrderTechnicianId", "TechnicianWorkOrderWorkOrderId");
+
                     b.Navigation("Customer");
 
                     b.Navigation("Invoice");
 
                     b.Navigation("Vehicle");
-                });
-
-            modelBuilder.Entity("TechnicianWorkOrder", b =>
-                {
-                    b.HasOne("SeeSharpCarCare.Core.Models.Technician", null)
-                        .WithMany()
-                        .HasForeignKey("TechniciansId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SeeSharpCarCare.Core.Models.WorkOrder", null)
-                        .WithMany()
-                        .HasForeignKey("WorkOrdersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("SeeSharpCarCare.Core.Models.Customer", b =>
@@ -324,6 +339,11 @@ namespace SeeSharpCarCare.Core.Migrations
             modelBuilder.Entity("SeeSharpCarCare.Core.Models.Technician", b =>
                 {
                     b.Navigation("Invoices");
+                });
+
+            modelBuilder.Entity("SeeSharpCarCare.Core.Models.TechnicianWorkOrder", b =>
+                {
+                    b.Navigation("WorkOrders");
                 });
 
             modelBuilder.Entity("SeeSharpCarCare.Core.Models.Vehicle", b =>

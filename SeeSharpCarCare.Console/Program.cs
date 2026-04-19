@@ -30,6 +30,25 @@ Customer c = new Customer
     Address = "9865 S. Pearl St. Seattle, WA. 98562",
     Email = "Timothy.Valentine@professionalservicexyz.io"
 };
-await cust.AddToRepository(c);
+// await cust.AddToRepository(c);
+Repository<Repair> repairs = new();
+Repair repair = new Repair
+{
 
+    RepairCode = "CW",
+    TechnicianId = 3,
+    Cost = 200,
+    Details = "Wash and details",
+    Mileage = 55124
+};
+//var x =await repairs.RemoveByIdFromRepository(25);
+//Console.WriteLine(x);
 
+Repository<TechnicianWorkOrder> technicianWorkOrder = new();
+TechnicianWorkOrder tw = new TechnicianWorkOrder
+{
+    TechnicianId = 1,
+    WorkOrderId = 1  
+};
+string twdb = await technicianWorkOrder.AddToRepository(tw);
+Console.WriteLine(twdb);

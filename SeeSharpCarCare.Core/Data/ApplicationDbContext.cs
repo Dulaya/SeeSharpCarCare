@@ -4,7 +4,7 @@ using SeeSharpCarCare.Core.Models;
 
 namespace SeeSharpCarCare.Core.Data;
 
-public class SeeSharpCarCareDbContext : DbContext
+public class ApplicationDbContext : DbContext
 {
     public DbSet<Invoice> Invoices { get; set; }
     public DbSet<Customer> Customers { get; set; }
@@ -14,6 +14,7 @@ public class SeeSharpCarCareDbContext : DbContext
     public DbSet<WorkOrder> WorkOrders { get; set; }
     public DbSet<RepairCode> RepairCodes { get; set; }
 
+    public DbSet<TechnicianWorkOrder> TechnicianWorkOrder { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -111,7 +112,12 @@ public class SeeSharpCarCareDbContext : DbContext
 
             entity
             .HasMany(workOrder => workOrder.Technicians)
-            .WithMany(technician => technician.WorkOrders);
+            .WithMany(technician => technician.WorkOrders)
+            .UsingEntity<TechnicianWorkOrder>();
+            // (
+            // r => r.HasOne<WorkOrder>(e => e.WokOrder).WithMany(e => e.t),
+            // l => l.HasOne<Technician>(e => e.Technician).WithMany(e => e.PostTags));
+
 
             entity
             .HasMany(workOrder => workOrder.Repairs)
@@ -122,6 +128,21 @@ public class SeeSharpCarCareDbContext : DbContext
             .WithOne(invoice => invoice.WorkOrder)
             .HasForeignKey<WorkOrder>(workOrder => workOrder.InvoiceId);
         });
+
+        // Configure Composite Primary Key for the join entity
+        modelBuilder.Entity<TechnicianWorkOrder>()
+            .HasKey(tw => new { tw.TechnicianId, tw.WorkOrderId });
+
+        // Link Student to Join Entity
+        // modelBuilder.Entity<TechnicianWorkOrder>()
+        //     .HasOne(sc => sc.Technician)
+        //     .WithOne(sc => sc.WorkOrder);
+
+        // // Link Course to Join Entity
+        // modelBuilder.Entity<TechnicianWorkOrder>()
+        //     .HasOne(sc => sc.Course)
+        //     .WithMany(c => c.StudentCourses)
+        //     .HasForeignKey(sc => sc.CourseId);
 
         /*Invoice invoice = new Invoice
         {

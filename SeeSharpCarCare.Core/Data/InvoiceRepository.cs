@@ -4,7 +4,7 @@ namespace SeeSharpCarCare.Core.Data;
 
 public class InvoiceRepository
 {
-    SeeSharpCarCareDbContext context = new();
+    ApplicationDbContext context = new();
     
 
 }
