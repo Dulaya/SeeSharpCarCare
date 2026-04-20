@@ -4,6 +4,7 @@ namespace SeeSharpCarCare.Core.Models;
 
 public class TechnicianWorkOrder
 {
+    [Key]
     public int Id { get; set; }
     public int? TechnicianId { get; set; }
 

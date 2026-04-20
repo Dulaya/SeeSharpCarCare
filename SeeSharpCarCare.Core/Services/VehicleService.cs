@@ -21,8 +21,10 @@ public class VehicleService
     }
 
     async public Task<string> RemoveVehicleService(Vehicle vehicle)
-       => await _vehicleRepository.RemoveFromRepository(vehicle);
+        => await _vehicleRepository.RemoveFromRepository(vehicle);
 
+    async public Task<string> RemoveVehicleByIdService(int id)
+        => await _vehicleRepository.RemoveByIdFromRepository(id);
     async public Task<string> UpdateVehicleService(Vehicle vehicle)
     {
         try

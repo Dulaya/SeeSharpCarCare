@@ -8,5 +8,5 @@ public interface IRepository<T>
     public Task<string> RemoveFromRepository(T obj);
     public Task<string> RemoveByIdFromRepository(int id);
     public Task<string> UpdateRepository(T obj);
-    public Task<T> FindByIdInRepository(string vin);
+    public Task<T> FindByIdInRepository(string id);
 }

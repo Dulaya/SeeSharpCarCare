@@ -13,7 +13,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<Vehicle> Vehicles { get; set; }
     public DbSet<WorkOrder> WorkOrders { get; set; }
     public DbSet<RepairCode> RepairCodes { get; set; }
-
     public DbSet<TechnicianWorkOrder> TechnicianWorkOrders { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
