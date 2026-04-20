@@ -7,6 +7,11 @@ public class Repository<T> : IRepository<T> where T : class
 {
     private readonly ApplicationDbContext _context = new();
 
+    public Repository(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
     async public Task<string> AddToRepository(T obj)
     {
         try

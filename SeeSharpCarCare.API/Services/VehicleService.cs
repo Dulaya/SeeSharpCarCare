@@ -5,7 +5,12 @@ namespace SeeSharpCarCare.API.Services;
 
 public class VehicleService : IVehicleService
 {
-    private Repository<Vehicle> _vehicleRepository = new();
+    private readonly IRepository<Vehicle> _vehicleRepository;
+
+    public VehicleService(IRepository<Vehicle> vehicleRepository)
+    {
+        _vehicleRepository = vehicleRepository;
+    }
 
     async public Task<string> AddVehicleService(Vehicle vehicle)
     {
