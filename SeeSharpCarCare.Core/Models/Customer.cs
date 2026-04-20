@@ -12,8 +12,8 @@ public class Customer
 
     public string? Email { get; set; }
 
-    public List<Invoice> Invoices { get; set; } = new List<Invoice>();
+    public List<Invoice>? Invoices { get; set; } = new List<Invoice>();
 
-    public List<WorkOrder> WordkOrders { get; set; } = new List<WorkOrder>();
+    public List<WorkOrder>? WordkOrders { get; set; } = new List<WorkOrder>();
 
 }

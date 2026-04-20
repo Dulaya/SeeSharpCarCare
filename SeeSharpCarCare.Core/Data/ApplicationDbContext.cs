@@ -14,11 +14,10 @@ public class ApplicationDbContext : DbContext
     public DbSet<WorkOrder> WorkOrders { get; set; }
     public DbSet<RepairCode> RepairCodes { get; set; }
 
-    public DbSet<TechnicianWorkOrder> TechnicianWorkOrder { get; set; }
+    public DbSet<TechnicianWorkOrder> TechnicianWorkOrders { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        // optionsBuilder.UseSqlite("Data Source = SeeSharpCarCare.db");
         optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=SeeSharpCarCare;Trusted_Connection=true;TrustServerCertificate=true;");
     }
 
@@ -53,10 +52,6 @@ public class ApplicationDbContext : DbContext
             .HasForeignKey(invoice => invoice.VIN)
             .OnDelete(DeleteBehavior.Restrict);
 
-            // entity
-            // .HasMany(invoice => invoice.Technicians)
-            // .WithMany(technician => technician.Invoices);
-
             entity
             .HasOne(invoice => invoice.WorkOrder)
             .WithOne(workOrder => workOrder.Invoice);
@@ -76,10 +71,6 @@ public class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<Technician>(entity =>
         {
-            // entity
-            // .HasMany(technician => technician.Invoices)
-            // .WithMany(invoice => invoice.Technicians);
-
             entity
             .HasMany(technician => technician.WorkOrders)
             .WithMany(workOrder => workOrder.Technicians);
@@ -114,10 +105,6 @@ public class ApplicationDbContext : DbContext
             .HasMany(workOrder => workOrder.Technicians)
             .WithMany(technician => technician.WorkOrders)
             .UsingEntity<TechnicianWorkOrder>();
-            // (
-            // r => r.HasOne<WorkOrder>(e => e.WokOrder).WithMany(e => e.t),
-            // l => l.HasOne<Technician>(e => e.Technician).WithMany(e => e.PostTags));
-
 
             entity
             .HasMany(workOrder => workOrder.Repairs)
@@ -129,71 +116,35 @@ public class ApplicationDbContext : DbContext
             .HasForeignKey<WorkOrder>(workOrder => workOrder.InvoiceId);
         });
 
-        // Configure Composite Primary Key for the join entity
-        modelBuilder.Entity<TechnicianWorkOrder>()
-            .HasKey(tw => new { tw.TechnicianId, tw.WorkOrderId });
-
-        // Link Student to Join Entity
-        // modelBuilder.Entity<TechnicianWorkOrder>()
-        //     .HasOne(sc => sc.Technician)
-        //     .WithOne(sc => sc.WorkOrder);
-
-        // // Link Course to Join Entity
-        // modelBuilder.Entity<TechnicianWorkOrder>()
-        //     .HasOne(sc => sc.Course)
-        //     .WithMany(c => c.StudentCourses)
-        //     .HasForeignKey(sc => sc.CourseId);
-
-        /*Invoice invoice = new Invoice
-        {
-            InvoiceId = 1,
-            CustomerId = 1,
-            VIN = "ABCDE123456789012",
-          //  RepairDate = DateTime.Now
-        };
-        List<Invoice> invoices = new();
-        invoices.Add(invoice);
-        
-        modelBuilder.Entity<Customer>()
+        modelBuilder.Entity<RepairCode>()
         .HasData(
-            new Customer
-            {
-                CustomerId = 1,
-                CustomerName = "John Smith",
-                Phone = "123-456-7890",
-                Address = "123 Main St. Los Angeles, 12345",
-                Email = "john.smith@example.com",
-                //Invoices = invoices
-            }
+            new RepairCode { Id = "AC", RepairName = "Air Conditioning" },
+            new RepairCode { Id = "BB", RepairName = "Brake Bleeding" },
+            new RepairCode { Id = "BP", RepairName = "Brake Pads" },
+            new RepairCode { Id = "BT", RepairName = "Battery Testing" },
+            new RepairCode { Id = "BR", RepairName = "Battery Replacement" },
+            new RepairCode { Id = "CL", RepairName = "Clutch" },
+            new RepairCode { Id = "CR", RepairName = "Coolant Flush" },
+            new RepairCode { Id = "CS", RepairName = "Charging System" },
+            new RepairCode { Id = "CW", RepairName = "Car Wash" },
+            new RepairCode { Id = "ECM", RepairName = "Engine Control Module" },
+            new RepairCode { Id = "ES", RepairName = "Engine Swap" },
+            new RepairCode { Id = "EM", RepairName = "Electric Motor" },
+            new RepairCode { Id = "FP", RepairName = "Fuel Pump" },
+            new RepairCode { Id = "HB", RepairName = "Hybrid System" },
+            new RepairCode { Id = "HR", RepairName = "Head Lights" },
+            new RepairCode { Id = "OC", RepairName = "Oil Change" },
+            new RepairCode { Id = "SP", RepairName = "Spark Plugs" },
+            new RepairCode { Id = "SS", RepairName = "Suspension System" },
+            new RepairCode { Id = "ST", RepairName = "Steering System" },
+            new RepairCode { Id = "TF", RepairName = "Transmission Fluid" },
+            new RepairCode { Id = "TR", RepairName = "Tire Rotation" },
+            new RepairCode { Id = "TRN", RepairName = "Tire Replacement (New)" },
+            new RepairCode { Id = "TRU", RepairName = "Tire Replacement (Used)" },
+            new RepairCode { Id = "TS", RepairName = "Transmission Service" },
+            new RepairCode { Id = "WA", RepairName = "Wheel Alignment" },
+            new RepairCode { Id = "WB", RepairName = "Wheel Balancing" }
         );
 
-        modelBuilder.Entity<Invoice>()
-        .HasData(invoice);
-
-        modelBuilder.Entity<Technician>()
-        .HasData(
-            new Technician
-            {
-                TechnicianId = 1,
-                Name = "Jimmy the Tech",
-               // Invoices = invoices
-            }
-        );
-
-
-        modelBuilder.Entity<Vehicle>()
-        .HasData(
-            new Vehicle
-            {
-                VIN = "ABCDE123456789012",
-                Make = "Honda",
-                Model = "Civic",
-                Body =  "Sedan",
-                Color = "Red",
-                Year = 2021,
-                Mileage = 51520,
-                Invoices = []
-            }
-        );*/
     }
 }

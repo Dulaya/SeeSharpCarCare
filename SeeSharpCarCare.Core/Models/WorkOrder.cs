@@ -16,11 +16,11 @@ public class WorkOrder
 
     public Vehicle? Vehicle { get; set; } = null!;
 
-    public DateTime RepairDate { get; set; } = DateTime.Now;
+    public DateTime? RepairDate { get; set; } = DateTime.Now;
 
-    public List<Technician> Technicians { get; set; } = new List<Technician>();
+    public List<Technician>? Technicians { get; set; } = new List<Technician>();
 
-    public List<Repair> Repairs { get; set; } = new List<Repair>();
+    public List<Repair>? Repairs { get; set; } = new List<Repair>();
 
     public Invoice? Invoice { get; set; } = null!;
 

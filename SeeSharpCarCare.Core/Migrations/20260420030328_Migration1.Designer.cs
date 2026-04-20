@@ -12,7 +12,7 @@ using SeeSharpCarCare.Core.Data;
 namespace SeeSharpCarCare.Core.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260419222119_Migration1")]
+    [Migration("20260420030328_Migration1")]
     partial class Migration1
     {
         /// <inheritdoc />
@@ -63,7 +63,7 @@ namespace SeeSharpCarCare.Core.Migrations
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("RepairDate")
+                    b.Property<DateTime?>("RepairDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("TechnicianId")
@@ -112,7 +112,7 @@ namespace SeeSharpCarCare.Core.Migrations
                     b.Property<int?>("TechnicianId")
                         .HasColumnType("int");
 
-                    b.Property<int>("WorkOrderId")
+                    b.Property<int?>("WorkOrderId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -137,6 +137,138 @@ namespace SeeSharpCarCare.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RepairCodes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "AC",
+                            RepairName = "Air Conditioning"
+                        },
+                        new
+                        {
+                            Id = "BB",
+                            RepairName = "Brake Bleeding"
+                        },
+                        new
+                        {
+                            Id = "BP",
+                            RepairName = "Brake Pads"
+                        },
+                        new
+                        {
+                            Id = "BT",
+                            RepairName = "Battery Testing"
+                        },
+                        new
+                        {
+                            Id = "BR",
+                            RepairName = "Battery Replacement"
+                        },
+                        new
+                        {
+                            Id = "CL",
+                            RepairName = "Clutch"
+                        },
+                        new
+                        {
+                            Id = "CR",
+                            RepairName = "Coolant Flush"
+                        },
+                        new
+                        {
+                            Id = "CS",
+                            RepairName = "Charging System"
+                        },
+                        new
+                        {
+                            Id = "CW",
+                            RepairName = "Car Wash"
+                        },
+                        new
+                        {
+                            Id = "ECM",
+                            RepairName = "Engine Control Module"
+                        },
+                        new
+                        {
+                            Id = "ES",
+                            RepairName = "Engine Swap"
+                        },
+                        new
+                        {
+                            Id = "EM",
+                            RepairName = "Electric Motor"
+                        },
+                        new
+                        {
+                            Id = "FP",
+                            RepairName = "Fuel Pump"
+                        },
+                        new
+                        {
+                            Id = "HB",
+                            RepairName = "Hybrid System"
+                        },
+                        new
+                        {
+                            Id = "HR",
+                            RepairName = "Head Lights"
+                        },
+                        new
+                        {
+                            Id = "OC",
+                            RepairName = "Oil Change"
+                        },
+                        new
+                        {
+                            Id = "SP",
+                            RepairName = "Spark Plugs"
+                        },
+                        new
+                        {
+                            Id = "SS",
+                            RepairName = "Suspension System"
+                        },
+                        new
+                        {
+                            Id = "ST",
+                            RepairName = "Steering System"
+                        },
+                        new
+                        {
+                            Id = "TF",
+                            RepairName = "Transmission Fluid"
+                        },
+                        new
+                        {
+                            Id = "TR",
+                            RepairName = "Tire Rotation"
+                        },
+                        new
+                        {
+                            Id = "TRN",
+                            RepairName = "Tire Replacement (New)"
+                        },
+                        new
+                        {
+                            Id = "TRU",
+                            RepairName = "Tire Replacement (Used)"
+                        },
+                        new
+                        {
+                            Id = "TS",
+                            RepairName = "Transmission Service"
+                        },
+                        new
+                        {
+                            Id = "WA",
+                            RepairName = "Wheel Alignment"
+                        },
+                        new
+                        {
+                            Id = "WB",
+                            RepairName = "Wheel Balancing"
+                        });
                 });
 
             modelBuilder.Entity("SeeSharpCarCare.Core.Models.Technician", b =>
@@ -148,7 +280,6 @@ namespace SeeSharpCarCare.Core.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -158,17 +289,25 @@ namespace SeeSharpCarCare.Core.Migrations
 
             modelBuilder.Entity("SeeSharpCarCare.Core.Models.TechnicianWorkOrder", b =>
                 {
-                    b.Property<int>("TechnicianId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("WorkOrderId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("TechnicianId")
                         .HasColumnType("int");
 
-                    b.HasKey("TechnicianId", "WorkOrderId");
+                    b.Property<int?>("WorkOrderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TechnicianId");
 
                     b.HasIndex("WorkOrderId");
 
-                    b.ToTable("TechnicianWorkOrder");
+                    b.ToTable("TechnicianWorkOrders");
                 });
 
             modelBuilder.Entity("SeeSharpCarCare.Core.Models.Vehicle", b =>
@@ -210,14 +349,8 @@ namespace SeeSharpCarCare.Core.Migrations
                     b.Property<int?>("InvoiceId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("RepairDate")
+                    b.Property<DateTime?>("RepairDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("TechnicianWorkOrderTechnicianId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TechnicianWorkOrderWorkOrderId")
-                        .HasColumnType("int");
 
                     b.Property<string>("VIN")
                         .HasColumnType("nvarchar(450)");
@@ -231,8 +364,6 @@ namespace SeeSharpCarCare.Core.Migrations
                         .HasFilter("[InvoiceId] IS NOT NULL");
 
                     b.HasIndex("VIN");
-
-                    b.HasIndex("TechnicianWorkOrderTechnicianId", "TechnicianWorkOrderWorkOrderId");
 
                     b.ToTable("WorkOrders");
                 });
@@ -270,9 +401,7 @@ namespace SeeSharpCarCare.Core.Migrations
 
                     b.HasOne("SeeSharpCarCare.Core.Models.WorkOrder", "WorkOrder")
                         .WithMany("Repairs")
-                        .HasForeignKey("WorkOrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WorkOrderId");
 
                     b.Navigation("Technician");
 
@@ -281,21 +410,13 @@ namespace SeeSharpCarCare.Core.Migrations
 
             modelBuilder.Entity("SeeSharpCarCare.Core.Models.TechnicianWorkOrder", b =>
                 {
-                    b.HasOne("SeeSharpCarCare.Core.Models.Technician", "Technician")
+                    b.HasOne("SeeSharpCarCare.Core.Models.Technician", null)
                         .WithMany()
-                        .HasForeignKey("TechnicianId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TechnicianId");
 
-                    b.HasOne("SeeSharpCarCare.Core.Models.WorkOrder", "WokOrder")
+                    b.HasOne("SeeSharpCarCare.Core.Models.WorkOrder", null)
                         .WithMany()
-                        .HasForeignKey("WorkOrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Technician");
-
-                    b.Navigation("WokOrder");
+                        .HasForeignKey("WorkOrderId");
                 });
 
             modelBuilder.Entity("SeeSharpCarCare.Core.Models.WorkOrder", b =>
@@ -313,10 +434,6 @@ namespace SeeSharpCarCare.Core.Migrations
                         .WithMany("WorkOrders")
                         .HasForeignKey("VIN")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("SeeSharpCarCare.Core.Models.TechnicianWorkOrder", null)
-                        .WithMany("WorkOrders")
-                        .HasForeignKey("TechnicianWorkOrderTechnicianId", "TechnicianWorkOrderWorkOrderId");
 
                     b.Navigation("Customer");
 
@@ -342,11 +459,6 @@ namespace SeeSharpCarCare.Core.Migrations
             modelBuilder.Entity("SeeSharpCarCare.Core.Models.Technician", b =>
                 {
                     b.Navigation("Invoices");
-                });
-
-            modelBuilder.Entity("SeeSharpCarCare.Core.Models.TechnicianWorkOrder", b =>
-                {
-                    b.Navigation("WorkOrders");
                 });
 
             modelBuilder.Entity("SeeSharpCarCare.Core.Models.Vehicle", b =>

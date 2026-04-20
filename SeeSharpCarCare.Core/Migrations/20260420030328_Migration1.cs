@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace SeeSharpCarCare.Core.Migrations
 {
     /// <inheritdoc />
@@ -45,7 +47,7 @@ namespace SeeSharpCarCare.Core.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,7 +78,7 @@ namespace SeeSharpCarCare.Core.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerId = table.Column<int>(type: "int", nullable: true),
                     VIN = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    RepairDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RepairDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     WorkOrderId = table.Column<int>(type: "int", nullable: true),
                     TechnicianId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -103,53 +105,6 @@ namespace SeeSharpCarCare.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Repairs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RepairCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TechnicianId = table.Column<int>(type: "int", nullable: true),
-                    Cost = table.Column<double>(type: "float", nullable: true),
-                    Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WorkOrderId = table.Column<int>(type: "int", nullable: false),
-                    Mileage = table.Column<int>(type: "int", nullable: true),
-                    InvoiceId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Repairs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Repairs_Invoices_InvoiceId",
-                        column: x => x.InvoiceId,
-                        principalTable: "Invoices",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Repairs_Technicians_TechnicianId",
-                        column: x => x.TechnicianId,
-                        principalTable: "Technicians",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TechnicianWorkOrder",
-                columns: table => new
-                {
-                    TechnicianId = table.Column<int>(type: "int", nullable: false),
-                    WorkOrderId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TechnicianWorkOrder", x => new { x.TechnicianId, x.WorkOrderId });
-                    table.ForeignKey(
-                        name: "FK_TechnicianWorkOrder_Technicians_TechnicianId",
-                        column: x => x.TechnicianId,
-                        principalTable: "Technicians",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "WorkOrders",
                 columns: table => new
                 {
@@ -157,10 +112,8 @@ namespace SeeSharpCarCare.Core.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerId = table.Column<int>(type: "int", nullable: true),
                     VIN = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    RepairDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    InvoiceId = table.Column<int>(type: "int", nullable: true),
-                    TechnicianWorkOrderTechnicianId = table.Column<int>(type: "int", nullable: true),
-                    TechnicianWorkOrderWorkOrderId = table.Column<int>(type: "int", nullable: true)
+                    RepairDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    InvoiceId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -177,16 +130,102 @@ namespace SeeSharpCarCare.Core.Migrations
                         principalTable: "Invoices",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_WorkOrders_TechnicianWorkOrder_TechnicianWorkOrderTechnicianId_TechnicianWorkOrderWorkOrderId",
-                        columns: x => new { x.TechnicianWorkOrderTechnicianId, x.TechnicianWorkOrderWorkOrderId },
-                        principalTable: "TechnicianWorkOrder",
-                        principalColumns: new[] { "TechnicianId", "WorkOrderId" });
-                    table.ForeignKey(
                         name: "FK_WorkOrders_Vehicles_VIN",
                         column: x => x.VIN,
                         principalTable: "Vehicles",
                         principalColumn: "VIN",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Repairs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RepairCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TechnicianId = table.Column<int>(type: "int", nullable: true),
+                    Cost = table.Column<double>(type: "float", nullable: true),
+                    Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WorkOrderId = table.Column<int>(type: "int", nullable: true),
+                    Mileage = table.Column<int>(type: "int", nullable: true),
+                    InvoiceId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Repairs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Repairs_Invoices_InvoiceId",
+                        column: x => x.InvoiceId,
+                        principalTable: "Invoices",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Repairs_Technicians_TechnicianId",
+                        column: x => x.TechnicianId,
+                        principalTable: "Technicians",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Repairs_WorkOrders_WorkOrderId",
+                        column: x => x.WorkOrderId,
+                        principalTable: "WorkOrders",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TechnicianWorkOrders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TechnicianId = table.Column<int>(type: "int", nullable: true),
+                    WorkOrderId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TechnicianWorkOrders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TechnicianWorkOrders_Technicians_TechnicianId",
+                        column: x => x.TechnicianId,
+                        principalTable: "Technicians",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TechnicianWorkOrders_WorkOrders_WorkOrderId",
+                        column: x => x.WorkOrderId,
+                        principalTable: "WorkOrders",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "RepairCodes",
+                columns: new[] { "Id", "RepairName" },
+                values: new object[,]
+                {
+                    { "AC", "Air Conditioning" },
+                    { "BB", "Brake Bleeding" },
+                    { "BP", "Brake Pads" },
+                    { "BR", "Battery Replacement" },
+                    { "BT", "Battery Testing" },
+                    { "CL", "Clutch" },
+                    { "CR", "Coolant Flush" },
+                    { "CS", "Charging System" },
+                    { "CW", "Car Wash" },
+                    { "ECM", "Engine Control Module" },
+                    { "EM", "Electric Motor" },
+                    { "ES", "Engine Swap" },
+                    { "FP", "Fuel Pump" },
+                    { "HB", "Hybrid System" },
+                    { "HR", "Head Lights" },
+                    { "OC", "Oil Change" },
+                    { "SP", "Spark Plugs" },
+                    { "SS", "Suspension System" },
+                    { "ST", "Steering System" },
+                    { "TF", "Transmission Fluid" },
+                    { "TR", "Tire Rotation" },
+                    { "TRN", "Tire Replacement (New)" },
+                    { "TRU", "Tire Replacement (Used)" },
+                    { "TS", "Transmission Service" },
+                    { "WA", "Wheel Alignment" },
+                    { "WB", "Wheel Balancing" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -220,8 +259,13 @@ namespace SeeSharpCarCare.Core.Migrations
                 column: "WorkOrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TechnicianWorkOrder_WorkOrderId",
-                table: "TechnicianWorkOrder",
+                name: "IX_TechnicianWorkOrders_TechnicianId",
+                table: "TechnicianWorkOrders",
+                column: "TechnicianId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TechnicianWorkOrders_WorkOrderId",
+                table: "TechnicianWorkOrders",
                 column: "WorkOrderId");
 
             migrationBuilder.CreateIndex(
@@ -237,72 +281,28 @@ namespace SeeSharpCarCare.Core.Migrations
                 filter: "[InvoiceId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkOrders_TechnicianWorkOrderTechnicianId_TechnicianWorkOrderWorkOrderId",
-                table: "WorkOrders",
-                columns: new[] { "TechnicianWorkOrderTechnicianId", "TechnicianWorkOrderWorkOrderId" });
-
-            migrationBuilder.CreateIndex(
                 name: "IX_WorkOrders_VIN",
                 table: "WorkOrders",
                 column: "VIN");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Repairs_WorkOrders_WorkOrderId",
-                table: "Repairs",
-                column: "WorkOrderId",
-                principalTable: "WorkOrders",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_TechnicianWorkOrder_WorkOrders_WorkOrderId",
-                table: "TechnicianWorkOrder",
-                column: "WorkOrderId",
-                principalTable: "WorkOrders",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Invoices_Customers_CustomerId",
-                table: "Invoices");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_WorkOrders_Customers_CustomerId",
-                table: "WorkOrders");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Invoices_Technicians_TechnicianId",
-                table: "Invoices");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_TechnicianWorkOrder_Technicians_TechnicianId",
-                table: "TechnicianWorkOrder");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Invoices_Vehicles_VIN",
-                table: "Invoices");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_WorkOrders_Vehicles_VIN",
-                table: "WorkOrders");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_WorkOrders_Invoices_InvoiceId",
-                table: "WorkOrders");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_TechnicianWorkOrder_WorkOrders_WorkOrderId",
-                table: "TechnicianWorkOrder");
-
             migrationBuilder.DropTable(
                 name: "RepairCodes");
 
             migrationBuilder.DropTable(
                 name: "Repairs");
+
+            migrationBuilder.DropTable(
+                name: "TechnicianWorkOrders");
+
+            migrationBuilder.DropTable(
+                name: "WorkOrders");
+
+            migrationBuilder.DropTable(
+                name: "Invoices");
 
             migrationBuilder.DropTable(
                 name: "Customers");
@@ -312,15 +312,6 @@ namespace SeeSharpCarCare.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "Vehicles");
-
-            migrationBuilder.DropTable(
-                name: "Invoices");
-
-            migrationBuilder.DropTable(
-                name: "WorkOrders");
-
-            migrationBuilder.DropTable(
-                name: "TechnicianWorkOrder");
         }
     }
 }
