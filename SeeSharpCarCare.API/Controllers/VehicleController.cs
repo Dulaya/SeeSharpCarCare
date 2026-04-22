@@ -12,7 +12,7 @@ public class VehicleController : ControllerBase
 
     public VehicleController(IVehicleService vehicleService) { _vehicleService = vehicleService; }
 
-    [HttpGet("vin/{vin}")]
+    [HttpGet("{vin}")]
     public async Task<ActionResult<Vehicle>> GetVehicleByVINController(string vin)
     {
         try
