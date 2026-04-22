@@ -1,3 +1,4 @@
+using System.Data.Common;
 using SeeSharpCarCare.API.Data;
 using SeeSharpCarCare.API.Models;
 
@@ -19,9 +20,9 @@ public class VehicleService : IVehicleService
             vehicle.VIN = vehicle.VIN.ToUpper();
             return await _vehicleRepository.AddToRepository(vehicle);
         }
-        catch
+        catch (DbException e)
         {
-            throw new KeyNotFoundException("Id Not Found.");
+            throw new Exception(e.Message);
         }
     }
 
@@ -30,6 +31,7 @@ public class VehicleService : IVehicleService
 
     async public Task RemoveVehicleByIdService(string vin)
         => await _vehicleRepository.RemoveByIdFromRepository(vin);
+        
     async public Task UpdateVehicleService(Vehicle vehicle)
     {
         try

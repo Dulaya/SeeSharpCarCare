@@ -17,7 +17,7 @@ public class VehicleController : ControllerBase
     {
         try
         {
-            Vehicle vehicle = await _vehicleService.FindVehicleByIdService(vin); 
+            Vehicle vehicle = await _vehicleService.FindVehicleByIdService(vin);
             return vehicle;
         }
         catch (Exception e)
@@ -25,4 +25,5 @@ public class VehicleController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
 }
