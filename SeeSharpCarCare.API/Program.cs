@@ -16,9 +16,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IVehicleService, VehicleService>(); 
 builder.Services.AddScoped<IRepository<Vehicle>, Repository<Vehicle>>(); 
 
-builder.Services.AddScoped<IService<Vehicle>, Service<Vehicle>>();
-builder.Services.AddScoped<IService<Technician>, Service<Technician>>();
-builder.Services.AddScoped<IRepository<Technician>, Repository<Technician>>(); 
+// builder.Services.AddScoped<IService<Vehicle>, Service<Vehicle>>();
+// builder.Services.AddScoped<IService<Technician>, Service<Technician>>();
+// builder.Services.AddScoped<IRepository<Technician>, Repository<Technician>>(); 
 
 
 var app = builder.Build();

@@ -12,7 +12,7 @@ public class VehicleService : IVehicleService
         _vehicleRepository = vehicleRepository;
     }
 
-    async public Task<string> AddVehicleService(Vehicle vehicle)
+   /* async public Task<string> AddVehicleService(Vehicle vehicle)
     {
         try
         {
@@ -42,7 +42,7 @@ public class VehicleService : IVehicleService
         {
             return "Vehicle Not Found.";
         }
-    }
+    }*/
 
     async public Task<Vehicle> FindVehicleByVINService(string vin)
     {

@@ -1,5 +1,6 @@
 using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
+using SeeSharpCarCare.API.Models;
 
 namespace SeeSharpCarCare.API.Data;
 
