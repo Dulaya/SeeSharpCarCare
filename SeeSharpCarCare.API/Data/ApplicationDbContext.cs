@@ -17,11 +17,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<RepairCode> RepairCodes { get; set; }
     public DbSet<TechnicianWorkOrder> TechnicianWorkOrders { get; set; }
 
-    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    // {
-    //     optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=SeeSharpCarCare;Trusted_Connection=true;TrustServerCertificate=true;");
-    // }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Customer>(entity =>
