@@ -4,7 +4,7 @@ using SeeSharpCarCare.API.Services;
 
 namespace SeeSharpCarCare.Controllers;
 
-[Route("api/vehicles")]
+[Route("api/[controller]")]
 [ApiController]
 public class VehicleController : ControllerBase
 {
@@ -12,13 +12,12 @@ public class VehicleController : ControllerBase
 
     public VehicleController(IVehicleService vehicleService) { _vehicleService = vehicleService; }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Vehicle>> GetVehicleByVINController(string id)
+    [HttpGet("vin/{vin}")]
+    public async Task<ActionResult<Vehicle>> GetVehicleByVINController(string vin)
     {
         try
         {
-            Console.WriteLine("Veh");
-            Vehicle vehicle = await _vehicleService.FindVehicleByVINService(id); 
+            Vehicle vehicle = await _vehicleService.FindVehicleByIdService(vin); 
             return vehicle;
         }
         catch (Exception e)
@@ -26,6 +25,4 @@ public class VehicleController : ControllerBase
             return BadRequest(e.Message);
         }
     }
-
-
 }

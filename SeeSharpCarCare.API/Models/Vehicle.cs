@@ -5,7 +5,7 @@ namespace SeeSharpCarCare.API.Models;
 public class Vehicle
 {
     [Key]
-    public string VIN { get; set; }
+    public required string VIN { get; set; }
 
     public string? Make { get; set; }
 

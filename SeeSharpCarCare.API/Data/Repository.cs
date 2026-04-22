@@ -1,6 +1,5 @@
 using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
-using SeeSharpCarCare.API.Models;
 
 namespace SeeSharpCarCare.API.Data;
 
@@ -13,95 +12,126 @@ public class Repository<T> : IRepository<T> where T : class
         _context = context;
     }
 
-    async public Task<string> AddToRepository(T obj)
+    async public Task<T> AddToRepository(T obj)
     {
         try
         {
             bool objFound = await _context.Set<T>().AnyAsync(o => o == obj);
-            if (objFound) return $"{typeof(T).Name} Already Existed.";
+            if (objFound) throw new KeyNotFoundException("Id Not Found.");
             else
             {
                 await _context.Set<T>().AddAsync(obj);
                 await _context.SaveChangesAsync();
-                return $"{typeof(T).Name} Added";
+                return obj;
             }
         }
         catch (DbException e)
         {
-            return e.Message;
+            throw new Exception(e.Message);
         }
     }
 
 
-    async public Task<string> RemoveFromRepository(T obj)
+    async public Task<T> RemoveFromRepository(T obj)
     {
         try
         {
             bool objFound = await _context.Set<T>().AnyAsync(o => o == obj);
-            if (!objFound) return $"{typeof(T).Name} Doesn't Exist.";
+            if (!objFound) throw new KeyNotFoundException("Id Not Found.");
             else
             {
                 _context.Set<T>().Remove(obj);
                 await _context.SaveChangesAsync();
-                return $"{typeof(T).Name} Removed.";
+                return obj;
             }
         }
         catch (DbException e)
         {
-            return e.Message;
+            throw new Exception(e.Message);
         }
     }
 
-    async public Task<string> RemoveByIdFromRepository(int id)
+    async public Task RemoveByIdFromRepository(int id)
     {
         try
         {
             T? obj = await _context.Set<T>().FindAsync(id);
-            if (obj == null) return $"{typeof(T).Name} Doesn't Exist.";
+            if (obj == null) throw new KeyNotFoundException("Id Not Found.");
             else
             {
                 _context.Set<T>().Remove(obj);
                 await _context.SaveChangesAsync();
-                return $"{typeof(T).Name} Removed.";
             }
         }
         catch (DbException e)
         {
-            return e.Message;
+            throw new Exception(e.Message);
         }
     }
 
-    async public Task<string> UpdateRepository(T obj)
+    async public Task RemoveByIdFromRepository(string id)
+    {
+        try
+        {
+            T? obj = await _context.Set<T>().FindAsync(id);
+            if (obj == null) throw new KeyNotFoundException("Id Not Found.");
+            else
+            {
+                _context.Set<T>().Remove(obj);
+                await _context.SaveChangesAsync();
+            }
+        }
+        catch (DbException e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+
+    async public Task UpdateRepository(T obj)
     {
         try
         {
             bool objFound = await _context.Set<T>().AnyAsync(v => v == obj);
-            if (!objFound) return $"{typeof(T).Name} Not Found.";
+            if (!objFound) throw new KeyNotFoundException("Id Not Found.");
+
             else
             {
 
                 await _context.Set<T>().AddAsync(obj);
                 await _context.SaveChangesAsync();
-                return $"{typeof(T).Name} Removed.";
             }
         }
         catch (DbException e)
         {
-            return e.Message;
+            throw new Exception(e.Message);
         }
     }
 
-    async public Task<T> FindByIdInRepository(string id)
+    async public Task<T> FindByIdInRepository(int id)
     {
         try
         {
             T? obj = await _context.Set<T>().FindAsync(id);
             if (obj != null) return obj;
-            else return null;
+            else throw new KeyNotFoundException("Id Not Found.");
         }
         catch
         {
-            return null;
+            throw new KeyNotFoundException("Id Not Found.");
+        }
+    }
+
+    async public Task<T> FindByIdInRepository(string vin)
+    {
+        try
+        {
+            T? obj = await _context.Set<T>().FindAsync(vin);
+            if (obj != null) return obj;
+            else throw new KeyNotFoundException("Vehicle Not Found.");
+        }
+        catch
+        {
+            throw new KeyNotFoundException("Vehicle Not Found.");
         }
     }
 

@@ -12,42 +12,42 @@ public class VehicleService : IVehicleService
         _vehicleRepository = vehicleRepository;
     }
 
-   /* async public Task<string> AddVehicleService(Vehicle vehicle)
+    async public Task<Vehicle> AddVehicleService(Vehicle vehicle)
     {
         try
         {
             vehicle.VIN = vehicle.VIN.ToUpper();
             return await _vehicleRepository.AddToRepository(vehicle);
         }
-        catch (Exception e)
+        catch
         {
-            return e.Message;
+            throw new KeyNotFoundException("Id Not Found.");
         }
     }
 
-    async public Task<string> RemoveVehicleService(Vehicle vehicle)
+    async public Task<Vehicle> RemoveVehicleService(Vehicle vehicle)
         => await _vehicleRepository.RemoveFromRepository(vehicle);
 
-    async public Task<string> RemoveVehicleByIdService(int id)
-        => await _vehicleRepository.RemoveByIdFromRepository(id);
-    async public Task<string> UpdateVehicleService(Vehicle vehicle)
+    async public Task RemoveVehicleByIdService(string vin)
+        => await _vehicleRepository.RemoveByIdFromRepository(vin);
+    async public Task UpdateVehicleService(Vehicle vehicle)
     {
         try
         {
             await RemoveVehicleService(vehicle);
             await AddVehicleService(vehicle);
-            return "Vehicle Updated.";
         }
         catch
         {
-            return "Vehicle Not Found.";
+            throw new KeyNotFoundException("Vehicle Not Found.");
         }
-    }*/
+    }
 
-    async public Task<Vehicle> FindVehicleByVINService(string vin)
+    async public Task<Vehicle> FindVehicleByIdService(string vin)
     {
         Vehicle vehicle = await _vehicleRepository.FindByIdInRepository(vin);
         if (vehicle != null) return vehicle;
-        else return new Vehicle();
+        else
+            throw new KeyNotFoundException("Vehicle Not Found.");
     }
 }
