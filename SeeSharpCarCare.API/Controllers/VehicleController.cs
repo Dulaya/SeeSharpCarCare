@@ -26,4 +26,45 @@ public class VehicleController : ControllerBase
         }
     }
 
+    [HttpPost]
+    async public Task<ActionResult<Vehicle>> PostVehicleController(Vehicle newVehicle)
+    {
+        try
+        {
+            return await _vehicleService.AddVehicleService(newVehicle);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpDelete("{vin}")]
+    public async Task<ActionResult> DeleteVehicleController(string vin)
+    {
+        try
+        {
+            await _vehicleService.RemoveVehicleByIdService(vin);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+        return NoContent();
+    }
+
+    [HttpPatch]
+    public async Task<ActionResult> UpdateVehicleController(Vehicle vehicle)
+    {
+        try
+        {
+            await _vehicleService.UpdateVehicleService(vehicle);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+
+        return NoContent();
+    }
 }

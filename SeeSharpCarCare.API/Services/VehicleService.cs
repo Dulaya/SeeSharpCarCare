@@ -18,6 +18,7 @@ public class VehicleService : IVehicleService
         try
         {
             vehicle.VIN = vehicle.VIN.ToUpper();
+            if(vehicle.VIN.Length != 17) throw new ArgumentException("VIN Must Be 17 Characters.");
             return await _vehicleRepository.AddToRepository(vehicle);
         }
         catch (DbException e)
@@ -49,7 +50,7 @@ public class VehicleService : IVehicleService
             throw new Exception(e.Message);
         }
     }
-    
+
     async public Task UpdateVehicleService(Vehicle vehicle)
     {
         try
