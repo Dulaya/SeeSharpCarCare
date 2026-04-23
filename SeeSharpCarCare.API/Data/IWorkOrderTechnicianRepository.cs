@@ -2,7 +2,7 @@ using SeeSharpCarCare.API.DTOs;
 
 namespace SeeSharpCarCare.API.Data;
 
-public interface IWorkOrderTechnicianRepository
+public interface ITechWorkOrderRepository
 {
-    Task UpdateWorkOrderTechnicianRepository(WorkOrderTechnicianDTO workOrderTechnicianDTO);
+    Task UpdateTechWorkOrderRepository(TechWorkOrderDTO techworkOrderDTO);
 }
