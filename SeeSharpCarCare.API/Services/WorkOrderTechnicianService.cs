@@ -3,21 +3,21 @@ using SeeSharpCarCare.API.DTOs;
 
 namespace SeeSharpCarCare.API.Services;
 
-public class WorkOrderTechnicianService : IWorkOrderTechnicianService
+public class TechWorkOrderService : ITechWorkOrderService
 {
-    private readonly IWorkOrderTechnicianRepository _workOrderTechnicianRepository;
+    private readonly ITechWorkOrderRepository _techWorkOrderRepository;
 
-    public WorkOrderTechnicianService(IWorkOrderTechnicianRepository workOrderRepository)
+    public TechWorkOrderService(ITechWorkOrderRepository techWorkOrderRepository)
     {
-        _workOrderTechnicianRepository = workOrderRepository;
+        _techWorkOrderRepository = techWorkOrderRepository;
     }
 
-    async public Task UpdateWorkOrderTechnicianDTOService(WorkOrderTechnicianDTO workOrderTechnicianDTO)
+    async public Task UpdateTechWorkOrderDTOService(TechWorkOrderDTO techWorkOrderDTO)
     {
         try
         {
 
-            await _workOrderTechnicianRepository.UpdateWorkOrderTechnicianRepository(workOrderTechnicianDTO);
+            await _techWorkOrderRepository.UpdateTechWorkOrderRepository(techWorkOrderDTO);
         }
         catch
         {
