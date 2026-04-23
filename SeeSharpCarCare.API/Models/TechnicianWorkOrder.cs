@@ -6,7 +6,7 @@ public class TechnicianWorkOrder
 {
     [Key]
     public int Id { get; set; }
-    public int? TechnicianId { get; set; }
+    public string? TechnicianId { get; set; }
 
     public int? WorkOrderId { get; set; }
 
