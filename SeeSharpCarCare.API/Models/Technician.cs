@@ -5,7 +5,7 @@ namespace SeeSharpCarCare.API.Models;
 public class Technician
 {
     [Key]
-    public int Id { get; set; }
+    public required string Id { get; set; }
 
     public string? Name { get; set; }
 
