@@ -27,11 +27,29 @@ public class VehicleService : IVehicleService
     }
 
     async public Task<Vehicle> RemoveVehicleService(Vehicle vehicle)
-        => await _vehicleRepository.RemoveFromRepository(vehicle);
+    {
+        try
+        {
+            return await _vehicleRepository.RemoveFromRepository(vehicle);
+        }
+        catch (DbException e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
 
     async public Task RemoveVehicleByIdService(string vin)
-        => await _vehicleRepository.RemoveByIdFromRepository(vin);
-        
+    {
+        try
+        {
+             await _vehicleRepository.RemoveByIdFromRepository(vin);
+        }
+        catch (DbException e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+    
     async public Task UpdateVehicleService(Vehicle vehicle)
     {
         try
