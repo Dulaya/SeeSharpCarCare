@@ -10,7 +10,7 @@ public class Repair
 
     public string? RepairCode { get; set; }
 
-    public Technician? Technician { get; set; } = null;
+    public  Technician? Technician { get; set; } = null;
 
     public string? TechnicianId { get; set; }
 
@@ -19,7 +19,7 @@ public class Repair
     public string? Details { get; set; }
 
     public int? WorkOrderId { get; set; }
-    public WorkOrder? WorkOrder { get; set; } = null;
+    public  WorkOrder? WorkOrder { get; set; } = null;
 
     public int? Mileage { get; set; }
 

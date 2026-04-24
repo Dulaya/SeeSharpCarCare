@@ -9,9 +9,9 @@ public class Technician
 
     public string? Name { get; set; }
 
-    public List<Invoice>? Invoices { get; set; } = new List<Invoice>();
+    public  List<Invoice>? Invoices { get; set; } = new List<Invoice>();
 
-    public List<WorkOrder>? WorkOrders {get; set;} = new List<WorkOrder>();
+    public  List<WorkOrder>? WorkOrders {get; set;} = new List<WorkOrder>();
 
 
 }

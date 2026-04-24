@@ -40,26 +40,26 @@ public class WorkOrderController : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
-    public async Task<ActionResult> DeleteWorkOrderController(int id)
-    {
-        try
-        {
-            await _workOrderService.RemoveWorkOrderByIdService(id);
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
-        return NoContent();
-    }
+    // [HttpDelete("{id}")]
+    // public async Task<ActionResult> DeleteWorkOrderController(int id)
+    // {
+    //     try
+    //     {
+    //         await _workOrderService.RemoveWorkOrderByIdService(id);
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         return BadRequest(e.Message);
+    //     }
+    //     return NoContent();
+    // }
 
     [HttpPatch]
     public async Task<ActionResult> UpdateWorkOrderController(WorkOrder workOrder)
     {
         try
         {
-            await _workOrderService.UpdateWorkOrderService(workOrder);
+           await _workOrderService.UpdateWorkOrderService(workOrder);
         }
         catch (Exception e)
         {

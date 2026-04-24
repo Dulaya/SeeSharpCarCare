@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SeeSharpCarCare.API.Models;
 
@@ -17,11 +18,12 @@ public class WorkOrder
 
     public DateTime? RepairDate { get; set; } = DateTime.Now;
 
-    public List<Technician>? Technicians { get; set; } = new List<Technician>();
+    public List<Technician> Technicians { get; set; } = new List<Technician>();
 
     public List<Repair>? Repairs { get; set; } = new List<Repair>();
 
     public Invoice? Invoice { get; set; } = null!;
 
-    public int? InvoiceId {get; set;}
+    public int? InvoiceId { get; set; }
+
 }

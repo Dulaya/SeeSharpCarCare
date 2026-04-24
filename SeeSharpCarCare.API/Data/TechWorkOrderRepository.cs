@@ -18,19 +18,19 @@ public class TechWorkOrderRepository : ITechWorkOrderRepository
     {
         try
         {
-            await _context.TechnicianWorkOrders
-            .Where(wo => wo.WorkOrderId == obj.WorkOrderId)
-            .ExecuteUpdateAsync(setters =>
-            {
-                setters.SetProperty(t => t.TechnicianId, obj.TechnicianId);
-            });
+            // await _context.TechnicianWorkOrders
+            // .Where(wo => wo.WorkOrderId == obj.WorkOrderId)
+            // .ExecuteUpdateAsync(setters =>
+            // {
+            //     setters.SetProperty(t => t.TechnicianId, obj.TechnicianId);
+            // });
 
-            await _context.TechnicianWorkOrders
-            .Where(t => t.TechnicianId == obj.TechnicianId)
-            .ExecuteUpdateAsync(setters =>
-            {
-                setters.SetProperty(wo => wo.WorkOrderId, obj.WorkOrderId);
-            });
+            // await _context.TechnicianWorkOrders
+            // .Where(t => t.TechnicianId == obj.TechnicianId)
+            // .ExecuteUpdateAsync(setters =>
+            // {
+            //     setters.SetProperty(wo => wo.WorkOrderId, obj.WorkOrderId);
+            // });
             await _context.SaveChangesAsync();
         }
         catch (DbException e)

@@ -25,6 +25,9 @@ builder.Services.AddScoped<IRepository<WorkOrder>, Repository<WorkOrder>>();
 builder.Services.AddScoped<ITechWorkOrderService, TechWorkOrderService>(); 
 builder.Services.AddScoped<ITechWorkOrderRepository, TechWorkOrderRepository>(); 
 
+builder.Services.AddScoped<IWorkOrderRepo, WorkOrderRepo>(); 
+
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
