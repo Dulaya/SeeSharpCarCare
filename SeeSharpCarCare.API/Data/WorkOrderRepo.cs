@@ -33,12 +33,15 @@ public class WorkOrderRepo : IWorkOrderRepo
                 foreach (TechnicianWorkOrder technicianWorkOrder in matchedTWO)
                 {
                     if (technician.Id == technicianWorkOrder.TechnicianId)
-                        technicians.Add(new Technician { Id = technicianWorkOrder.TechnicianId, Name = technician.Name });
+                        // technicians.Add(new Technician { Id = technicianWorkOrder.TechnicianId, Name = technician.Name });
+                        technicians.Add(technician);
                 }
             }
 
             WorkOrder? workOrder = await _context.WorkOrders.FindAsync(id);
             workOrder.Technicians = technicians;
+
+            workOrder.Repairs = _context.Repairs.Where(r => r.WorkOrderId == workOrder.Id).ToList();
 
             if (workOrder != null) return workOrder;
             else throw new KeyNotFoundException("Id Not Found.");
@@ -63,7 +66,10 @@ public class WorkOrderRepo : IWorkOrderRepo
             {
                 foundWO.VIN = obj.VIN;
                 foundWO.CustomerId = obj.CustomerId;
+                foundWO.Repairs = obj.Repairs;
+
                 Console.WriteLine(foundWO.VIN);
+                // Add Technicians
                 if (obj.Technicians is not null)
                 {
                     foreach (var t in obj.Technicians)
@@ -81,15 +87,9 @@ public class WorkOrderRepo : IWorkOrderRepo
                                 foundWO.Technicians.AddRange(foundTech);
                     }
                 }
+
             }
             await _context.SaveChangesAsync();
-            /*
-            {
-            "id": 1,
-            "technicians": [{"id": "TEC001"},{"id": "TEC002"}]
-            }
-            */
-
         }
         catch (DbException e)
         {

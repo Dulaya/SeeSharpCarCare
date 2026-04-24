@@ -19,6 +19,7 @@ public class Repair
     public string? Details { get; set; }
 
     public int? WorkOrderId { get; set; }
+    
     public  WorkOrder? WorkOrder { get; set; } = null;
 
     public int? Mileage { get; set; }

@@ -62,7 +62,8 @@ public class ApplicationDbContext : DbContext
         {
             entity
             .HasOne(repair => repair.WorkOrder)
-            .WithMany(workOrder => workOrder.Repairs);
+            .WithMany(workOrder => workOrder.Repairs)
+            .HasForeignKey(repair => repair.WorkOrderId);
         });
 
         modelBuilder.Entity<Technician>(entity =>

@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using SeeSharpCarCare.API.Data;
 using SeeSharpCarCare.API.Models;
@@ -6,6 +7,9 @@ using SeeSharpCarCare.API.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+   options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen(); 
@@ -26,6 +30,7 @@ builder.Services.AddScoped<ITechWorkOrderService, TechWorkOrderService>();
 builder.Services.AddScoped<ITechWorkOrderRepository, TechWorkOrderRepository>(); 
 
 builder.Services.AddScoped<IWorkOrderRepo, WorkOrderRepo>(); 
+
 
 
 var app = builder.Build();
