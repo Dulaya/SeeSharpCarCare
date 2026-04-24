@@ -13,7 +13,7 @@ public class TechnicianController : ControllerBase
     public TechnicianController(ITechnicianService technicianService) { _technicianService = technicianService; }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Technician>> GetTechnicianByIdController(int id)
+    public async Task<ActionResult<Technician>> GetTechnicianByIdController(string id)
     {
         try
         {
@@ -40,7 +40,7 @@ public class TechnicianController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult> DeleteTechnicianController(int id)
+    public async Task<ActionResult> DeleteTechnicianController(string id)
     {
         try
         {

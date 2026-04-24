@@ -6,7 +6,7 @@ public interface ITechnicianService
 {
     Task<Technician> AddTechnicianService(Technician technician);
     Task<Technician> RemoveTechnicianService(Technician technician);
-    Task RemoveTechnicianByIdService(int id);
+    Task RemoveTechnicianByIdService(string id);
     Task UpdateTechnicianService(Technician technician);
-    Task<Technician> FindTechnicianByIdService(int id);
+    Task<Technician> FindTechnicianByIdService(string id);
 }

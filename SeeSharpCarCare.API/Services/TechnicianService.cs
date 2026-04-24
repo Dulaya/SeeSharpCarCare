@@ -37,11 +37,11 @@ public class TechnicianService : ITechnicianService
         }
     }
 
-    async public Task RemoveTechnicianByIdService(int id)
+    async public Task RemoveTechnicianByIdService(string id)
     {
         try
         {
-             await _technicianRepository.RemoveByIdFromRepository(id);
+            await _technicianRepository.RemoveByIdFromRepository(id);
         }
         catch (DbException e)
         {
@@ -53,16 +53,23 @@ public class TechnicianService : ITechnicianService
     {
         try
         {
-            await RemoveTechnicianService(technician); 
-            await AddTechnicianService(technician);
+           await _technicianRepository.RemoveByIdFromRepository(technician.Id);
         }
         catch
         {
             throw new KeyNotFoundException("Technician Not Found.");
         }
+        try
+        {
+            await _technicianRepository.AddToRepository(technician);
+        }
+        catch (DbException e)
+        {
+            throw new Exception(e.Message);
+        }
     }
 
-    async public Task<Technician> FindTechnicianByIdService(int id)
+    async public Task<Technician> FindTechnicianByIdService(string id)
     {
         Technician technician = await _technicianRepository.FindByIdInRepository(id);
         if (technician != null) return technician;

@@ -1,5 +1,7 @@
+using System.Data;
 using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
+using SeeSharpCarCare.API.Models;
 
 namespace SeeSharpCarCare.API.Data;
 
@@ -17,7 +19,7 @@ public class Repository<T> : IRepository<T> where T : class
         try
         {
             bool objFound = await _context.Set<T>().AnyAsync(o => o == obj);
-            if (objFound) throw new KeyNotFoundException("Id Not Found.");
+            if (objFound) throw new DuplicateNameException("Id Already Existed.");
             else
             {
                 await _context.Set<T>().AddAsync(obj);
@@ -121,17 +123,17 @@ public class Repository<T> : IRepository<T> where T : class
         }
     }
 
-    async public Task<T> FindByIdInRepository(string vin)
+    async public Task<T> FindByIdInRepository(string id)
     {
         try
         {
-            T? obj = await _context.Set<T>().FindAsync(vin);
+            T? obj = await _context.Set<T>().FindAsync(id);
             if (obj != null) return obj;
-            else throw new KeyNotFoundException("Vehicle Not Found.");
+            else throw new KeyNotFoundException("Id Not Found.");
         }
         catch
         {
-            throw new KeyNotFoundException("Vehicle Not Found.");
+            throw new KeyNotFoundException("Id Not Found.");
         }
     }
 
