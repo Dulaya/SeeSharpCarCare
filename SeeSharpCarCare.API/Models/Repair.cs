@@ -12,7 +12,7 @@ public class Repair
 
     public Technician? Technician { get; set; } = null;
 
-    public int? TechnicianId { get; set; }
+    public string? TechnicianId { get; set; }
 
     public double? Cost { get; set; }
 
