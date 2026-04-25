@@ -12,6 +12,20 @@ public class VehicleController : ControllerBase
 
     public VehicleController(IVehicleService vehicleService) { _vehicleService = vehicleService; }
 
+    [HttpGet]
+    public async Task<ActionResult<List<Vehicle>>> GetAllVehiclesController()
+    {
+        try
+        {
+            List<Vehicle> vehicles = await _vehicleService.GetAllVehiclesService();
+            return vehicles;
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
     [HttpGet("{vin}")]
     public async Task<ActionResult<Vehicle>> GetVehicleByVINController(string vin)
     {

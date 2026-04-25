@@ -13,6 +13,20 @@ public class WorkOrderController : ControllerBase
 
     public WorkOrderController(IWorkOrderService workOrderService) { _workOrderService = workOrderService; }
 
+    [HttpGet]
+    public async Task<ActionResult<List<WorkOrder>>> GetAllVehiclesController()
+    {
+        try
+        {
+            List<WorkOrder> workOrders = await _workOrderService.GetAllWorkOrders();
+            return workOrders;
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<WorkOrder>> GetWorkOrderByIdController(int id)
     {
@@ -40,19 +54,19 @@ public class WorkOrderController : ControllerBase
         }
     }
 
-    // [HttpDelete("{id}")]
-    // public async Task<ActionResult> DeleteWorkOrderController(int id)
-    // {
-    //     try
-    //     {
-    //         await _workOrderService.RemoveWorkOrderByIdService(id);
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         return BadRequest(e.Message);
-    //     }
-    //     return NoContent();
-    // }
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteWorkOrderController(int id)
+    {
+        try
+        {
+            await _workOrderService.RemoveWorkOrderByIdService(id);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+        return NoContent();
+    }
 
     [HttpPatch]
     public async Task<ActionResult> UpdateWorkOrderController(WorkOrder workOrder)

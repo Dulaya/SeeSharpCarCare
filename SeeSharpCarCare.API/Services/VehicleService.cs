@@ -18,7 +18,7 @@ public class VehicleService : IVehicleService
         try
         {
             vehicle.VIN = vehicle.VIN.ToUpper();
-            if(vehicle.VIN.Length != 17) throw new ArgumentException("VIN Must Be 17 Characters.");
+            if (vehicle.VIN.Length != 17) throw new ArgumentException("VIN Must Be 17 Characters.");
             return await _vehicleRepository.AddToRepository(vehicle);
         }
         catch (DbException e)
@@ -43,7 +43,7 @@ public class VehicleService : IVehicleService
     {
         try
         {
-             await _vehicleRepository.RemoveByIdFromRepository(vin);
+            await _vehicleRepository.RemoveByIdFromRepository(vin);
         }
         catch (DbException e)
         {
@@ -68,6 +68,14 @@ public class VehicleService : IVehicleService
     {
         Vehicle vehicle = await _vehicleRepository.FindByIdInRepository(vin);
         if (vehicle != null) return vehicle;
+        else
+            throw new KeyNotFoundException("Vehicle Not Found.");
+    }
+
+    async public Task<List<Vehicle>> GetAllVehiclesService()
+    {
+        List<Vehicle> vehicles = await _vehicleRepository.GetAllFromRepository();
+        if (vehicles != null) return vehicles;
         else
             throw new KeyNotFoundException("Vehicle Not Found.");
     }

@@ -7,7 +7,8 @@ public interface IWorkOrderService
 {
 Task<WorkOrder> AddWorkOrderService(WorkOrder workOrder);
    // Task<WorkOrder> RemoveWorkOrderService(WorkOrder workOrder);
-  //  Task RemoveWorkOrderByIdService(int id);
+   Task RemoveWorkOrderByIdService(int id);
     Task UpdateWorkOrderService(WorkOrder workOrder);
    Task<WorkOrder> FindWorkOrderByIdService(int id);
+   Task<List<WorkOrder>> GetAllWorkOrders();
 }

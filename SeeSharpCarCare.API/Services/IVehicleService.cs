@@ -9,4 +9,6 @@ public interface IVehicleService
     Task RemoveVehicleByIdService(string vin);
     Task UpdateVehicleService(Vehicle vehicle);
     Task<Vehicle> FindVehicleByIdService(string vin);
+    Task<List<Vehicle>> GetAllVehiclesService();
+
 }

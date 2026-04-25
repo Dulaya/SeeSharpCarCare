@@ -31,6 +31,16 @@ builder.Services.AddScoped<ITechWorkOrderRepository, TechWorkOrderRepository>();
 
 builder.Services.AddScoped<IWorkOrderRepo, WorkOrderRepo>(); 
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyAllowSpecificOrigins",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173") // Replace with your frontend URL
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 
 var app = builder.Build();
@@ -52,6 +62,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseCors("MyAllowSpecificOrigins");
 
 
 app.Run();

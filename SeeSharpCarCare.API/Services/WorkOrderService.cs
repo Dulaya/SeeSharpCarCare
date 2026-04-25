@@ -16,6 +16,18 @@ public class WorkOrderService : IWorkOrderService
         _workOrderRepo = workOrderRepo;
     }
 
+    async public Task<List<WorkOrder>> GetAllWorkOrders()
+    {
+        try
+        {
+            return await _workOrderRepository.GetAllFromRepository();
+        }
+        catch(DbException e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+
     async public Task<WorkOrder> AddWorkOrderService(WorkOrder workOrder)
     {
         try
@@ -40,17 +52,17 @@ public class WorkOrderService : IWorkOrderService
     //     }
     // }
 
-    // async public Task RemoveWorkOrderByIdService(int id)
-    // {
-    //     try
-    //     {
-    //         await _workOrderRepository.RemoveByIdFromRepository(id);
-    //     }
-    //     catch (DbException e)
-    //     {
-    //         throw new Exception(e.Message);
-    //     }
-    // }
+    async public Task RemoveWorkOrderByIdService(int id)
+    {
+        try
+        {
+            await _workOrderRepository.RemoveByIdFromRepository(id);
+        }
+        catch (DbException e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
 
     async public Task UpdateWorkOrderService(WorkOrder workOrder)
     {

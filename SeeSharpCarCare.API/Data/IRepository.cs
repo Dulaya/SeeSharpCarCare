@@ -13,4 +13,5 @@ public interface IRepository<T>
     public Task UpdateRepository(T obj);
     public Task<T> FindByIdInRepository(int id);
     public Task<T> FindByIdInRepository(string vin);
+    public Task<List<T>> GetAllFromRepository();
 }

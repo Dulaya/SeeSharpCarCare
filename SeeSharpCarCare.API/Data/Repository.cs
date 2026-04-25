@@ -139,7 +139,7 @@ public class Repository<T> : IRepository<T> where T : class
 
     async public Task<List<T>> GetAllFromRepository()
     {
-        return await _context.Set<T>().Take(10).ToListAsync();
+        return await _context.Set<T>().ToListAsync();
     }
 
 }

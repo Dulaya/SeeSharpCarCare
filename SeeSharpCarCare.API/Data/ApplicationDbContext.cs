@@ -77,11 +77,13 @@ public class ApplicationDbContext : DbContext
         {
             entity
             .HasMany(vehicle => vehicle.Invoices)
-            .WithOne(invoice => invoice.Vehicle);
+            .WithOne(invoice => invoice.Vehicle)
+            .OnDelete(DeleteBehavior.Cascade);
 
             entity
             .HasMany(vehicle => vehicle.WorkOrders)
-            .WithOne(workOrder => workOrder.Vehicle);
+            .WithOne(workOrder => workOrder.Vehicle)
+            .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<WorkOrder>(entity =>
