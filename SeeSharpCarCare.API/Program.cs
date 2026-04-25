@@ -26,6 +26,9 @@ builder.Services.AddScoped<IRepository<Technician>, Repository<Technician>>();
 builder.Services.AddScoped<IWorkOrderService, WorkOrderService>(); 
 builder.Services.AddScoped<IRepository<WorkOrder>, Repository<WorkOrder>>(); 
 
+builder.Services.AddScoped<IRepairService, RepairService>(); 
+builder.Services.AddScoped<IRepository<Repair>, Repository<Repair>>(); 
+
 builder.Services.AddScoped<ITechWorkOrderService, TechWorkOrderService>(); 
 builder.Services.AddScoped<ITechWorkOrderRepository, TechWorkOrderRepository>(); 
 
