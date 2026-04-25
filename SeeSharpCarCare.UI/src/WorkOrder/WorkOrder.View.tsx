@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CustomTd, CustomTh } from "../Components/CustomElements";
-import { deleteWorkOrder, getWorkOrderById, getWorkOrders, postWorkOrder } from "./WorkOrder";
+import { get, post, deleteById, getById } from "../API/API";
 
 
 
@@ -8,13 +8,10 @@ export const WorkOrder = (props: { setCurrentModule: any }) => {
 
     const [workOrders, setWorkOrders] = useState<any>();
     const [vin, setVin] = useState("");
-    const [make, setMake] = useState("");
-    const [model, setModel] = useState("");
-    const [year, setYear] = useState("");
     const [workOrder, setWorkOrder] = useState<any>();
 
     useEffect(() => {
-        getWorkOrders().then((response: any) => {
+        get("workorder").then((response: any) => {
             setWorkOrders(response);
         });
     }, []);
@@ -23,7 +20,7 @@ export const WorkOrder = (props: { setCurrentModule: any }) => {
 
     return <div style={{ border: "1px solid", display: "inline-block", padding: "10px" }}>
         <h2>Work Orders</h2>
-        <table>
+        <table style={{width: "750px"}}>
             <thead>
                 <tr>
                     <CustomTh>Work Order Id</CustomTh>
@@ -39,14 +36,14 @@ export const WorkOrder = (props: { setCurrentModule: any }) => {
                     <CustomTd>{wo?.vin}</CustomTd>
                     <CustomTd>{wo?.customer}</CustomTd>
                     <CustomTd><button onClick={() => {
-                        getWorkOrderById(wo?.id)?.then((res: any) => {
+                        getById({id: wo?.id, name: "workorder"})?.then((res: any) => {
                             setWorkOrder(res);
                         })
 
                     }}>Details</button></CustomTd>
                     <CustomTd><button onClick={() => {
-                        deleteWorkOrder(wo?.id).then(() =>
-                            getWorkOrders().then((response: any) => {
+                        deleteById({id: wo?.id, name: "workorder"}).then(() =>
+                            get("workorder").then((response: any) => {
                                 setWorkOrders(response);
                             }))
                     }}>❌</button></CustomTd>
@@ -55,7 +52,7 @@ export const WorkOrder = (props: { setCurrentModule: any }) => {
             </tbody>
         </table>
         <div style={{ marginTop: "50px", border: "1px solid", padding: "5px" }}>
-            <h3>Work Order Detais</h3>
+            <h3>Work Order Details</h3>
             <div>Work Order Id: {workOrder?.id} </div>
             <div>VIN: {workOrder?.vin}</div>
             <div>Date: {workOrder?.repairDate}</div>
@@ -88,14 +85,14 @@ export const WorkOrder = (props: { setCurrentModule: any }) => {
             </tbody>
         </table>
         <>
-            <input name="query" placeholder="VIN" value={vin} onChange={(e) => setVin(e.target.value)} maxLength={17} />{vin.length > 0 && vin.length}<br />
+            <input placeholder="VIN" value={vin} onChange={(e) => setVin(e.target.value)} maxLength={17} />{vin.length > 0 && vin.length}<br />
             <button type="submit"
                 onClick={() => {
                     const data = {
                         vin
                     }
-                    postWorkOrder(data).then(() =>
-                        getWorkOrders().then((response: any) => {
+                    post({data, name: "workorder"}).then(() =>
+                        get("workorder").then((response: any) => {
                             setWorkOrders(response);
                         })
                     )

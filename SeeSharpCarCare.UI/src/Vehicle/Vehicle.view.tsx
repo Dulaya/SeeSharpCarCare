@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteVehicle, getVehicles, postVehicle } from "./Vehicle";
+import { get, post, deleteById } from "../API/API";
 import { CustomTd, CustomTh } from "../Components/CustomElements";
 
 type TVehicle = {
@@ -18,7 +18,7 @@ export const Vehicle = (props: { setCurrentModule: any }) => {
     const [year, setYear] = useState("");
 
     useEffect(() => {
-        getVehicles().then((response: any) => {
+        get("vehicle").then((response: any) => {
             console.log(response);
             setVehicles(response);
         });
@@ -43,8 +43,8 @@ export const Vehicle = (props: { setCurrentModule: any }) => {
                     <CustomTd>{v?.model}</CustomTd>
                     <CustomTd>{v?.year}</CustomTd>
                     <CustomTd><button onClick={() => {
-                        deleteVehicle(v?.vin).then(() =>
-                            getVehicles().then((response: any) => {
+                        deleteById({id: v?.vin, name: "vehicle"}).then(() =>
+                            get("vehicle").then((response: any) => {
                                 setVehicles(response);
                             }))
                     }}>❌</button></CustomTd>
@@ -52,10 +52,10 @@ export const Vehicle = (props: { setCurrentModule: any }) => {
             </tbody>
         </table>
         <>
-            <input name="query" placeholder="VIN" value={vin} onChange={(e) => setVin(e.target.value)} maxLength={17} />{vin.length > 0 && vin.length}<br />
-            <input name="query" placeholder="Make" value={make} onChange={(e) => setMake(e.target.value)} /><br />
-            <input name="query" placeholder="Model" value={model} onChange={(e) => setModel(e.target.value)} /><br />
-            <input name="query" placeholder="Year" value={year} onChange={(e) => setYear(e.target.value)} /><br />
+            <input placeholder="VIN" value={vin} onChange={(e) => setVin(e.target.value)} maxLength={17} />{vin.length > 0 && vin.length}<br />
+            <input placeholder="Make" value={make} onChange={(e) => setMake(e.target.value)} /><br />
+            <input placeholder="Model" value={model} onChange={(e) => setModel(e.target.value)} /><br />
+            <input placeholder="Year" value={year} onChange={(e) => setYear(e.target.value)} /><br />
             <button type="submit"
                 onClick={() => {
                     const data = {
@@ -65,8 +65,8 @@ export const Vehicle = (props: { setCurrentModule: any }) => {
                         year
                     }
                     props.setCurrentModule("Vehicle");
-                    postVehicle(data).then(() => {
-                        getVehicles().then((response: any) => {
+                    post({data, name: "vehicle"}).then(() => {
+                        get("vehicle").then((response: any) => {
                             setVehicles(response);
                         })
                     })

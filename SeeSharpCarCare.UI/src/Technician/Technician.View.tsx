@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteTechnician, getTechnicians, postTechnician } from "./Technician";
+import { get, post, deleteById } from "../API/API";
 import { CustomTd, CustomTh } from "../Components/CustomElements";
 
 
@@ -9,7 +9,7 @@ export const Technician = (props: { setCurrentModule: any }) => {
     const [id, setId] = useState("");
 
     useEffect(() => {
-        getTechnicians().then((response: any) => {
+        get("technician").then((response: any) => {
             setTechnicians(response);
         });
     }, []);
@@ -29,8 +29,8 @@ export const Technician = (props: { setCurrentModule: any }) => {
                     <CustomTd>{t?.id}</CustomTd>
                     <CustomTd>{t?.name}</CustomTd>
                     <CustomTd><button onClick={() => {
-                        deleteTechnician(t?.id).then(() =>
-                            getTechnicians().then((response: any) => {
+                        deleteById({ id: t?.id, name: "technician" }).then(() =>
+                            get("technician").then((response: any) => {
                                 setTechnicians(response);
                             }))
                     }}>❌</button></CustomTd>
@@ -41,11 +41,12 @@ export const Technician = (props: { setCurrentModule: any }) => {
             <input placeholder="Id (e.g. TEC001)" value={id} onChange={(e) => setId(e.target.value)} /><br />
             <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} /><br />
             <button type="submit"
+                disabled={id.length && name.length > 0 ? false : true}
                 onClick={() => {
                     const data = { name, id }
                     props.setCurrentModule("Technician");
-                    postTechnician(data).then(() => {
-                        getTechnicians().then((response: any) => {
+                    post({ data, name: "technician" }).then(() => {
+                        get("technician").then((response: any) => {
                             setTechnicians(response);
                         })
                     })
