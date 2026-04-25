@@ -12,6 +12,20 @@ public class TechnicianController : ControllerBase
 
     public TechnicianController(ITechnicianService technicianService) { _technicianService = technicianService; }
 
+    [HttpGet]
+    public async Task<ActionResult<List<Technician>>> GetAllTechniciansController()
+    {
+        try
+        {
+            List<Technician> technicians = await _technicianService.GetAllTechniciansService();
+            return technicians;
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<Technician>> GetTechnicianByIdController(string id)
     {

@@ -4,6 +4,7 @@ namespace SeeSharpCarCare.API.Services;
 
 public interface ITechnicianService
 {
+    Task<List<Technician>> GetAllTechniciansService();
     Task<Technician> AddTechnicianService(Technician technician);
     Task<Technician> RemoveTechnicianService(Technician technician);
     Task RemoveTechnicianByIdService(string id);

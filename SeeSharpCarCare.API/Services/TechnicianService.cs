@@ -13,6 +13,14 @@ public class TechnicianService : ITechnicianService
         _technicianRepository = technicianRepository;
     }
 
+    async public Task<List<Technician>> GetAllTechniciansService()
+    {
+        List<Technician> technicians = await _technicianRepository.GetAllFromRepository();
+        if (technicians != null) return technicians;
+        else
+            throw new KeyNotFoundException("Technicians Not Found.");
+    }
+
     async public Task<Technician> AddTechnicianService(Technician technician)
     {
         try
