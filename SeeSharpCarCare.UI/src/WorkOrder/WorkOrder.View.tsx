@@ -20,7 +20,7 @@ export const WorkOrder = (props: { setCurrentModule: any }) => {
 
     return <div style={{ border: "1px solid", display: "inline-block", padding: "10px" }}>
         <h2>Work Orders</h2>
-        <table style={{width: "750px"}}>
+        <table style={{ width: "750px" }}>
             <thead>
                 <tr>
                     <CustomTh>Work Order Id</CustomTh>
@@ -36,13 +36,13 @@ export const WorkOrder = (props: { setCurrentModule: any }) => {
                     <CustomTd>{wo?.vin}</CustomTd>
                     <CustomTd>{wo?.customer}</CustomTd>
                     <CustomTd><button onClick={() => {
-                        getById({id: wo?.id, name: "workorder"})?.then((res: any) => {
+                        getById({ id: wo?.id, name: "workorder" })?.then((res: any) => {
                             setWorkOrder(res);
                         })
 
                     }}>Details</button></CustomTd>
                     <CustomTd><button onClick={() => {
-                        deleteById({id: wo?.id, name: "workorder"}).then(() =>
+                        deleteById({ id: wo?.id, name: "workorder" }).then(() =>
                             get("workorder").then((response: any) => {
                                 setWorkOrders(response);
                             }))
@@ -67,6 +67,7 @@ export const WorkOrder = (props: { setCurrentModule: any }) => {
                     <CustomTh>Cost</CustomTh>
                     <CustomTh>Tech Id</CustomTh>
                     <CustomTh>Tech Name</CustomTh>
+                    <CustomTh>Mileage</CustomTh>
                 </tr>
             </thead>
             <tbody>
@@ -79,6 +80,7 @@ export const WorkOrder = (props: { setCurrentModule: any }) => {
                             <CustomTd>${repair?.cost}</CustomTd>
                             <CustomTd>{repair?.technician?.id}</CustomTd>
                             <CustomTd>{repair?.technician?.name}</CustomTd>
+                            <CustomTd>{repair?.mileage}</CustomTd>
                         </tr>
                     })
                 }
@@ -91,7 +93,7 @@ export const WorkOrder = (props: { setCurrentModule: any }) => {
                     const data = {
                         vin
                     }
-                    post({data, name: "workorder"}).then(() =>
+                    post({ data, name: "workorder" }).then(() =>
                         get("workorder").then((response: any) => {
                             setWorkOrders(response);
                         })
