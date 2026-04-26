@@ -32,6 +32,9 @@ builder.Services.AddScoped<IRepository<Repair>, Repository<Repair>>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IRepository<Customer>, Repository<Customer>>();
 
+builder.Services.AddScoped<IRepairCodeService, RepairCodeService>();
+builder.Services.AddScoped<IRepository<RepairCode>, Repository<RepairCode>>();
+
 builder.Services.AddScoped<ITechWorkOrderService, TechWorkOrderService>();
 builder.Services.AddScoped<ITechWorkOrderRepository, TechWorkOrderRepository>();
 
