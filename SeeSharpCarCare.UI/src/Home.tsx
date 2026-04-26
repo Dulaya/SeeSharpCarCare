@@ -3,6 +3,7 @@ import { Vehicle } from "./Vehicle/Vehicle.view";
 import { WorkOrder } from "./WorkOrder/WorkOrder.View";
 import { Technician } from "./Technician/Technician.View";
 import { Repair } from "./Repair/Repair.View";
+import { Customer } from "./Customer/Customer.View";
 
 export const Home = () => {
     const [currentModule, setCurrentModule] = useState<string>("Vehicle");
@@ -22,12 +23,15 @@ export const Home = () => {
             <button onClick={() => {
                 setCurrentModule("Repair");
             }}>Repair</button>
+            <button onClick={() => {
+                setCurrentModule("Customer");
+            }}>Customer</button>
         </div>
         {currentModule == "Vehicle" && <Vehicle setCurrentModule={setCurrentModule} />}
         {currentModule == "WorkOrder" && <WorkOrder setCurrentModule={setCurrentModule} />}
         {currentModule == "Technician" && <Technician setCurrentModule={setCurrentModule} />}
         {currentModule == "Repair" && <Repair setCurrentModule={setCurrentModule} />}
-
+        {currentModule == "Customer" && <Customer setCurrentModule={setCurrentModule} />}
     </div>
 
 }
