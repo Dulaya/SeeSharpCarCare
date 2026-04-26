@@ -16,11 +16,11 @@ public class WorkOrderService : IWorkOrderService
         _workOrderRepo = workOrderRepo;
     }
 
-    async public Task<List<WorkOrder>> GetAllWorkOrders()
+    async public Task<List<WorkOrder>> GetAllWorkOrdersService()
     {
         try
         {
-            return await _workOrderRepository.GetAllFromRepository();
+            return await _workOrderRepo.GetAllWorkOrdersFromRepo();
         }
         catch(DbException e)
         {

@@ -10,5 +10,5 @@ Task<WorkOrder> AddWorkOrderService(WorkOrder workOrder);
    Task RemoveWorkOrderByIdService(int id);
     Task UpdateWorkOrderService(WorkOrder workOrder);
    Task<WorkOrder> FindWorkOrderByIdService(int id);
-   Task<List<WorkOrder>> GetAllWorkOrders();
+   Task<List<WorkOrder>> GetAllWorkOrdersService();
 }

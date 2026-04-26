@@ -9,6 +9,7 @@ public interface IWorkOrderRepo
 {
     public Task UpdateWorkOrderRepo(WorkOrder obj);
     public Task<WorkOrder> FindWorkOrderByIdInRepo(int id);
+    Task<List<WorkOrder>> GetAllWorkOrdersFromRepo();
 }
 
 public class WorkOrderRepo : IWorkOrderRepo
@@ -19,6 +20,13 @@ public class WorkOrderRepo : IWorkOrderRepo
     {
         _context = context;
     }
+
+    async public Task<List<WorkOrder>> GetAllWorkOrdersFromRepo()
+    {
+        await _context.Customers.ToListAsync();
+        return await _context.WorkOrders.ToListAsync();
+    }
+
     async public Task<WorkOrder> FindWorkOrderByIdInRepo(int id)
     {
         try

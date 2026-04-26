@@ -14,11 +14,11 @@ public class WorkOrderController : ControllerBase
     public WorkOrderController(IWorkOrderService workOrderService) { _workOrderService = workOrderService; }
 
     [HttpGet]
-    public async Task<ActionResult<List<WorkOrder>>> GetAllVehiclesController()
+    public async Task<ActionResult<List<WorkOrder>>> GetAllWorkOrdersController()
     {
         try
         {
-            List<WorkOrder> workOrders = await _workOrderService.GetAllWorkOrders();
+            List<WorkOrder> workOrders = await _workOrderService.GetAllWorkOrdersService();
             return workOrders;
         }
         catch (Exception e)
