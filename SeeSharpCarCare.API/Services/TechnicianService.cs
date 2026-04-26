@@ -25,6 +25,10 @@ public class TechnicianService : ITechnicianService
     {
         try
         {
+            string? name = technician.Name;
+            // Capitalize each word
+            technician.Name = string.Join(" ", name.Split(' ')
+                      .Select(word => char.ToUpper(word[0]) + word.Substring(1).ToLower()));
             return await _technicianRepository.AddToRepository(technician);
         }
         catch (DbException e)

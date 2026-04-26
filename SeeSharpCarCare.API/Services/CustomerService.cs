@@ -17,6 +17,10 @@ public class CustomerService : ICustomerService
     {
         try
         {
+            string? name = customer.CustomerName;
+            // Capitalize each word
+            customer.CustomerName = string.Join(" ", name.Split(' ')
+                      .Select(word => char.ToUpper(word[0]) + word.Substring(1).ToLower()));
             return await _customerRepository.AddToRepository(customer);
         }
         catch (DbException e)

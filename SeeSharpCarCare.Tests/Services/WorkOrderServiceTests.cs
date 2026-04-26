@@ -29,6 +29,7 @@ public class WorkOrderServiceTests
         {
             Id = 1
         };
+        await _systemUnderTest.AddWorkOrderService(workOrder);
         await Assert.ThrowsAsync<KeyNotFoundException>(
             () => _systemUnderTest.FindWorkOrderByIdService(-1));
     }
