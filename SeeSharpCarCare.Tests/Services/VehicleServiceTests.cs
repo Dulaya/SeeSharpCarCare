@@ -1,5 +1,3 @@
-
-
 using Moq;
 using SeeSharpCarCare.API.Data;
 using SeeSharpCarCare.API.Models;
@@ -9,8 +7,8 @@ using Xunit.Abstractions;
 namespace SeeSharpCarCare.Tests.Services;
 
 public class VehicleServiceTests
-{
-    private readonly ITestOutputHelper _outputHelper;
+{    
+    private readonly ITestOutputHelper _output;
 
     private readonly Mock<IRepository<Vehicle>> _repoMock;
 
@@ -32,19 +30,17 @@ public class VehicleServiceTests
         Assert.NotNull(_systemUnderTest.AddVehicleService(vehicle));
     }
 
-    // [Fact]
-    // async public Task AddVehicleService_ConvertVINUppercase_AssertTrue()
-    // {
-    //     Vehicle vehicle = new Vehicle
-    //     {
-    //         VIN = "abcdefghijklmnopq" // Length must be 17
-    //     };
-    //     Task<Vehicle> vehicleTask = _systemUnderTest.AddVehicleService(vehicle);
-    //     Vehicle v = await vehicleTask;
-    //     // ABCDEFGHIJKLMNOPQ abcdefghijklmnopq
-    //     if (v is not null)
-    //         Assert.Equal("ABCDEFGHIJKLMNOPQ", v.VIN);
-    // }
+    [Fact]
+    async public Task AddVehicleService_ConvertVINUppercase_AssertTrue()
+    {
+        Vehicle vehicle = new Vehicle
+        {
+            VIN = "abcdefghijklmnopq" // Length must be 17
+        };
+        await _systemUnderTest.AddVehicleService(vehicle);
+
+        Assert.Equal("ABCDEFGHIJKLMNOPQ", vehicle.VIN);
+    }
 
     [Fact]
     async public Task AddVehicleService_InvalidVINLengthTooLong_ThrowsArgumentException()
