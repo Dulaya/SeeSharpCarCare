@@ -1,5 +1,4 @@
 appsettings.Development.json
 bin/
 obj/
-Migrations/
 TestResults/
