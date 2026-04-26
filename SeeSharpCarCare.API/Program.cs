@@ -12,27 +12,30 @@ builder.Services.AddControllers().AddJsonOptions(options =>
    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddOpenApi();
-builder.Services.AddSwaggerGen(); 
+builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")));
 
-builder.Services.AddScoped<IVehicleService, VehicleService>(); 
-builder.Services.AddScoped<IRepository<Vehicle>, Repository<Vehicle>>(); 
+builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddScoped<IRepository<Vehicle>, Repository<Vehicle>>();
 
-builder.Services.AddScoped<ITechnicianService, TechnicianService>(); 
-builder.Services.AddScoped<IRepository<Technician>, Repository<Technician>>(); 
+builder.Services.AddScoped<ITechnicianService, TechnicianService>();
+builder.Services.AddScoped<IRepository<Technician>, Repository<Technician>>();
 
-builder.Services.AddScoped<IWorkOrderService, WorkOrderService>(); 
-builder.Services.AddScoped<IRepository<WorkOrder>, Repository<WorkOrder>>(); 
+builder.Services.AddScoped<IWorkOrderService, WorkOrderService>();
+builder.Services.AddScoped<IRepository<WorkOrder>, Repository<WorkOrder>>();
 
-builder.Services.AddScoped<IRepairService, RepairService>(); 
-builder.Services.AddScoped<IRepository<Repair>, Repository<Repair>>(); 
+builder.Services.AddScoped<IRepairService, RepairService>();
+builder.Services.AddScoped<IRepository<Repair>, Repository<Repair>>();
 
-builder.Services.AddScoped<ITechWorkOrderService, TechWorkOrderService>(); 
-builder.Services.AddScoped<ITechWorkOrderRepository, TechWorkOrderRepository>(); 
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IRepository<Customer>, Repository<Customer>>();
 
-builder.Services.AddScoped<IWorkOrderRepo, WorkOrderRepo>(); 
+builder.Services.AddScoped<ITechWorkOrderService, TechWorkOrderService>();
+builder.Services.AddScoped<ITechWorkOrderRepository, TechWorkOrderRepository>();
+
+builder.Services.AddScoped<IWorkOrderRepo, WorkOrderRepo>();
 
 builder.Services.AddCors(options =>
 {
@@ -57,8 +60,8 @@ app.UseHttpsRedirection();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger(); 
-    app.UseSwaggerUI(); 
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseAuthorization();
