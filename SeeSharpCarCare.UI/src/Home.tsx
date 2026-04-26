@@ -15,6 +15,9 @@ export const Home = () => {
                 setCurrentModule("Vehicle");
             }}>Vehicles</button>
             <button onClick={() => {
+                setCurrentModule("Customer");
+            }}>Customer</button>
+            <button onClick={() => {
                 setCurrentModule("WorkOrder");
             }}>Work Orders</button>
             <button onClick={() => {
@@ -23,15 +26,12 @@ export const Home = () => {
             <button onClick={() => {
                 setCurrentModule("Repair");
             }}>Repair</button>
-            <button onClick={() => {
-                setCurrentModule("Customer");
-            }}>Customer</button>
         </div>
         {currentModule == "Vehicle" && <Vehicle setCurrentModule={setCurrentModule} />}
+        {currentModule == "Customer" && <Customer setCurrentModule={setCurrentModule} />}
         {currentModule == "WorkOrder" && <WorkOrder setCurrentModule={setCurrentModule} />}
         {currentModule == "Technician" && <Technician setCurrentModule={setCurrentModule} />}
         {currentModule == "Repair" && <Repair setCurrentModule={setCurrentModule} />}
-        {currentModule == "Customer" && <Customer setCurrentModule={setCurrentModule} />}
     </div>
 
 }

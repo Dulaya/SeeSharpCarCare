@@ -5,7 +5,7 @@ import { CustomTd, CustomTh } from "../Components/CustomElements";
 
 export const Repair = (props: { setCurrentModule: any }) => {
     const [repairs, setRepairs] = useState<any>();
-    const [workOrderId, setWorkOrderId] = useState<number>();
+    const [workOrderId, setWorkOrderId] = useState<string>("");
     const [repairCode, setRepairCode] = useState<string>();
     const [technicianId, setTechnicianId] = useState<string>();
     const [cost, setCost] = useState<number>();
@@ -44,7 +44,7 @@ export const Repair = (props: { setCurrentModule: any }) => {
                     <CustomTd>{r?.mileage}</CustomTd>
                     <CustomTd>{r?.details}</CustomTd>
                     <CustomTd><button onClick={() => {
-                        deleteById({id: r?.id, name: "repair"}).then(() =>
+                        deleteById({ id: r?.id, name: "repair" }).then(() =>
                             get("repair").then((response: any) => {
                                 setRepairs(response);
                             }))
@@ -53,13 +53,14 @@ export const Repair = (props: { setCurrentModule: any }) => {
             </tbody>
         </table>
         <>
-            <input placeholder="Work Order Id" value={workOrderId} onChange={(e) => setWorkOrderId(Number(e.target.value))}/><br />
+            <input placeholder="Work Order Id" value={workOrderId} onChange={(e) => setWorkOrderId(e.target.value)} /><br />
             <input placeholder="Repair Code" value={repairCode} onChange={(e) => setRepairCode(e.target.value)} /><br />
             <input placeholder="Technician Id" value={technicianId} onChange={(e) => setTechnicianId(e.target.value)} /><br />
             <input placeholder="Cost" value={cost} onChange={(e) => setCost(Number(e.target.value))} /><br />
             <input placeholder="Mileage" value={mileage} onChange={(e) => setMileage(Number(e.target.value))} /><br />
             <input placeholder="Details" value={details} onChange={(e) => setDetails(e.target.value)} /><br />
             <button type="submit"
+                disabled={workOrderId?.length > 0 ? false : true}
                 onClick={() => {
                     const data = {
                         workOrderId,
