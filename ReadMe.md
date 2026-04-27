@@ -57,7 +57,23 @@ Optional: In another terminal, `cd` into the UI directory by `cd SeeSharpCarCare
 |GET|`/api/Technician{id`|Get details of a technician.|
 |DELETE|`/api/Technician/{id}`|Remove technician from shop.|
 
+### Vehicle
+|Method|Endpoint|Description|
+|--|--|--|
+|GET|`/api/Vehicle`|List all vehicles in the shop.|
+|POST|`/api/Vehicle/`|Add a new vehicle to the shop.|
+|PATCH|`/api/Vehicle`|Update specific vehicle info.|
+|GET|`/api/Vehicle{id}`|Get details of a vehicle by VIN.|
+|DELETE|`/api/Vehicle/{id}`|Remove vehicle by VIN.|
 
+### Work Order
+|Method|Endpoint|Description|
+|--|--|--|
+|GET|`/api/WorkOrder`|List all work order in shop.|
+|POST|`/api/WorkOrder/`|Init a new work order.|
+|PATCH|`/api/WorkOrder`|Add/Remove repairs from work orders.|
+|GET|`/api/WorkOrder{id}`|Get details of a work order listing all repairs and customer details.|
+|DELETE|`/api/WorkOrder/{id}`|Cancel a work order.|
 
 ## Branch Coverage > 20%
 ![enter image description here](https://i.imgur.com/TAKQ1eq.png)
