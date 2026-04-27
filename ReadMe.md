@@ -25,6 +25,9 @@ Restore the project `dotnet restore` Build the project `dotnet build` Start the 
 
 Optional: In another terminal, `cd` into the UI directory by `cd SeeSharpCarCare\SeeSharpCarCare.UI` Before starting the UI development server, the required packages are need to be installed via the command `npm install` From here, start the UI development server by `npm run dev` Note: Node.js and NPM is required to run the UI. Go to http://localhost:5173/ to test UI.
 
+## Entity Relationship Diagram
+![](https://i.imgur.com/YiHqUdV.png)
+
 ## APIs
 ### Customer
 |Method|Endpoint|Description|
@@ -78,4 +81,4 @@ Optional: In another terminal, `cd` into the UI directory by `cd SeeSharpCarCare
 |DELETE|`/api/WorkOrder/{id}`|Cancel a work order.|
 
 ## Branch Coverage > 20%
-![enter image description here](https://i.imgur.com/TAKQ1eq.png)
+![](https://i.imgur.com/TAKQ1eq.png)
