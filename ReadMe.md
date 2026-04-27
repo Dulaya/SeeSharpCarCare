@@ -1,5 +1,7 @@
 # See Sharp Car Care
-A full-stack C#/.Net and TypeScript/React application for managing automotive work orders.
+
+## About
+A full-stack C#/.Net and TypeScript/React application for managing automotive work orders. This application allows shop supervisor to register a vehicle to the database using VIN and vehicle descriptions (make, model, year, color), input customer information (name, phone, email, address), create repairs and attach repairs to work orders linking to the specific vehicle, and finally generate an invoice based on the work order. 
 
 ## Installation
 > git clone https://github.com/Dulaya/SeeSharpCarCare.git
